@@ -17,7 +17,6 @@ module Pos.Wallet.Web.Mode
 
 import           Universum
 
-import qualified Control.Concurrent.STM as STM
 import           Control.Lens (makeLensesWith)
 import           Control.Monad.Catch (MonadMask)
 import qualified Control.Monad.Reader as Mtl
@@ -38,8 +37,6 @@ import           Pos.Client.Txp.Addresses (MonadAddresses (..))
 import           Pos.Client.Txp.Balances (MonadBalances (..))
 import           Pos.Client.Txp.History (MonadTxHistory (..), getBlockHistoryDefault,
                                          getLocalHistoryDefault, saveTxDefault)
-import           Pos.Client.Txp.Network (submitTxRaw)
-import           Pos.Communication (SendActions (..))
 import           Pos.Communication.Limits (HasAdoptedBlockVersionData (..))
 import           Pos.Context (HasNodeContext (..))
 import           Pos.Core (Address, Coin, HasConfiguration, HasPrimaryKey (..), isRedeemAddress,
@@ -79,7 +76,6 @@ import qualified Pos.Util.Modifier as MM
 import qualified Pos.Util.OutboundQueue as OQ.Reader
 import           Pos.Util.TimeWarp (CanJsonLog (..))
 import           Pos.Util.UserSecret (HasUserSecret (..))
-import           Pos.Wallet.Web.Networking (MonadWalletSendActions (..))
 import           Pos.Wallet.Web.Util (decodeCTypeOrFail)
 import           Pos.WorkMode (MinWorkMode, RealModeContext (..))
 
@@ -102,7 +98,6 @@ import           Pos.Wallet.Web.Tracking (MonadBListener (..), onApplyBlocksWebW
 data WalletWebModeContext = WalletWebModeContext
     { wwmcWalletState     :: !WalletState
     , wwmcConnectionsVar  :: !ConnectionsVar
-    , wwmcSendActions     :: !(STM.TMVar (SendActions WalletWebMode))
     , wwmcRealModeContext :: !(RealModeContext WalletMempoolExt)
     }
 
@@ -203,7 +198,6 @@ type MonadWalletWebMode ctx m =
 type MonadFullWalletWebMode ctx m =
     ( MonadWalletWebMode ctx m
     , MonadWalletWebSockets ctx m
-    , MonadWalletSendActions m
     , MonadReporting ctx m
     )
 
@@ -320,13 +314,6 @@ instance MonadKeysRead WalletWebMode where
 
 instance MonadKeys WalletWebMode where
     modifySecret = modifySecretDefault
-
-instance HasConfigurations => MonadWalletSendActions WalletWebMode where
-    sendTxToNetwork tx = do
-        saVar <- view wwmcSendActions_L
-        saMB <- atomically $ STM.tryReadTMVar saVar
-        let sa = fromMaybe (error "Wallet's SendActions isn't initialized") saMB
-        submitTxRaw (enqueueMsg sa) tx
 
 getNewAddressWebWallet
     :: MonadWalletLogic ctx m

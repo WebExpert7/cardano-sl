@@ -15,7 +15,6 @@ module Pos.Wallet.Web.Server.Runner
 
 import           Universum
 
-import qualified Control.Concurrent.STM as STM
 import qualified Control.Monad.Catch as Catch
 import           Control.Monad.Except (MonadError (throwError))
 import qualified Control.Monad.Reader as Mtl
@@ -26,7 +25,7 @@ import           Servant.Server (Handler)
 import           System.Wlog (logInfo)
 
 import           Pos.Communication (ActionSpec (..), OutSpecs)
-import           Pos.Communication.Protocol (SendActions)
+import           Pos.Diffusion.Types (Diffusion)
 import           Pos.Launcher.Configuration (HasConfigurations)
 import           Pos.Launcher.Resource (NodeResources)
 import           Pos.Launcher.Runner (runRealBasedMode)
@@ -52,10 +51,9 @@ runWRealMode
     -> (ActionSpec WalletWebMode a, OutSpecs)
     -> Production a
 runWRealMode db conn res spec = do
-    saVar <- atomically STM.newEmptyTMVar
     runRealBasedMode
-        (Mtl.withReaderT (WalletWebModeContext db conn saVar))
-        (Mtl.withReaderT (\(WalletWebModeContext _ _ _ rmc) -> rmc))
+        (Mtl.withReaderT (WalletWebModeContext db conn))
+        (Mtl.withReaderT (\(WalletWebModeContext _ _ rmc) -> rmc))
         res
         spec
 
@@ -63,23 +61,21 @@ walletServeWebFull
     :: ( HasConfigurations
        , HasCompileInfo
        )
-    => SendActions WalletWebMode
-    -> Bool              -- whether to include genesis keys
-    -> NetworkAddress    -- ^ IP and Port to listen
+    => Diffusion WalletWebMode -- FIXME ideally Diffusion would not run in WalletWebMode.
+    -> Bool                    -- whether to include genesis keys
+    -> NetworkAddress          -- ^ IP and Port to listen
     -> Maybe TlsParams
     -> WalletWebMode ()
-walletServeWebFull sendActions debug = walletServeImpl action
+walletServeWebFull diffusion debug = walletServeImpl action
   where
     action :: WalletWebMode Application
     action = do
         logInfo "DAEDALUS has STARTED!"
-        saVar <- asks wwmcSendActions
-        atomically $ STM.putTMVar saVar sendActions
         when debug $ addInitialRichAccount 0
 
         wwmc <- walletWebModeContext
         walletApplication $
-            walletServer @WalletWebModeContext @WalletWebMode (convertHandler wwmc)
+            walletServer @WalletWebModeContext @WalletWebMode diffusion (convertHandler wwmc)
 
 walletWebModeContext :: WalletWebMode WalletWebModeContext
 walletWebModeContext = view (lensOf @WalletWebModeContextTag)

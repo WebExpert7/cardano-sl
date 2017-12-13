@@ -98,9 +98,9 @@ walletProd ::
        )
     => WalletArgs
     -> ([WorkerSpec WalletWebMode], OutSpecs)
-walletProd WalletArgs {..} = first one $ worker walletServerOuts $ \sendActions ->
+walletProd WalletArgs {..} = first one $ worker walletServerOuts $ \_ -> -- (_, diffusion) ->
     walletServeWebFull
-        sendActions
+        (error "walletProd: use diffusion") -- diffusion
         walletDebug
         walletAddress
         (Just walletTLSParams)

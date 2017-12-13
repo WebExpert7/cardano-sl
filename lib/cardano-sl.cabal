@@ -45,6 +45,7 @@ library
 
                         -- Logic layer
                         Pos.Logic.Types
+                        Pos.Logic.Full
 
                         -- Behavior
                         Pos.Behavior
