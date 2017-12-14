@@ -15,7 +15,7 @@ import           System.Wlog (WithLogger, logNotice)
 
 import           Pos.Binary.Class (serialize)
 import           Pos.Binary.Infra.DHTModel ()
-import           Pos.Communication.Protocol (OutSpecs, WorkerSpec, localOnNewSlotWorker)
+import           Pos.Communication.Protocol (OutSpecs)
 import           Pos.Core.Configuration (HasConfiguration)
 import           Pos.Core.Slotting (flattenSlotId, slotIdF)
 import           Pos.DHT.Configuration (kademliaDumpInterval)
@@ -26,6 +26,7 @@ import           Pos.Recovery.Info (MonadRecoveryInfo, recoveryCommGuard)
 import           Pos.Reporting (MonadReporting)
 import           Pos.Shutdown (HasShutdownContext)
 import           Pos.Slotting.Class (MonadSlots)
+import           Pos.Worker.Types (WorkerSpec, localOnNewSlotWorker)
 
 type DhtWorkMode ctx m =
     ( WithLogger m

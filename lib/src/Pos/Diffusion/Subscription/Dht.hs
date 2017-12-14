@@ -11,12 +11,13 @@ import qualified Network.Broadcast.OutboundQueue as OQ
 import           Network.Broadcast.OutboundQueue.Types (Peers)
 import           System.Wlog (WithLogger, logNotice)
 
-import           Pos.Communication.Protocol (NodeId, Worker)
+import           Pos.Communication.Protocol (NodeId)
 import           Pos.DHT.Real.Real (kademliaGetKnownPeers)
 import           Pos.DHT.Real.Types (KademliaDHTInstance (..))
 import           Pos.Infra.Configuration (HasInfraConfiguration)
 import           Pos.Network.Types (Bucket (..), NodeType, choosePeers)
 import           Pos.Util.TimeWarp (addressToNodeId)
+import           Pos.Worker.Types (Worker)
 
 
 -- | This worker will update the known peers (via MonadKnownPeers) every time

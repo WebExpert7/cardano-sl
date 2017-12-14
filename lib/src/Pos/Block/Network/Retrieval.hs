@@ -37,8 +37,8 @@ import           Pos.Block.Types (ProgressHeaderTag, RecoveryHeaderTag)
 import           Pos.Communication.Limits.Types (recvLimited)
 import           Pos.Communication.Protocol (Conversation (..), ConversationActions (..),
                                              EnqueueMsg, MsgType (..), NodeId, OutSpecs,
-                                             SendActions (..), WorkerSpec, convH, toOutSpecs,
-                                             waitForConversations, worker)
+                                             SendActions (..), convH, toOutSpecs,
+                                             waitForConversations)
 import           Pos.Core (HasHeaderHash (..), HeaderHash, difficultyL, isMoreDifficult, prevBlockL)
 import           Pos.Core.Block (Block, BlockHeader, blockHeader)
 import           Pos.Crypto (shortHashF)
@@ -47,6 +47,7 @@ import           Pos.Util (_neHead, _neLast)
 import           Pos.Util.Chrono (NE, NewestFirst (..), OldestFirst (..), _NewestFirst,
                                   _OldestFirst)
 import           Pos.Util.Timer (Timer, startTimer)
+import           Pos.Worker.Types (WorkerSpec, worker)
 
 retrievalWorker
     :: forall ctx m.

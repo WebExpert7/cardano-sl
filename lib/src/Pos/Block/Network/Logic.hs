@@ -59,7 +59,7 @@ import qualified Pos.DB.Block.Load as DB
 import qualified Pos.DB.BlockIndex as DB
 import           Pos.Exception (cardanoExceptionFromException, cardanoExceptionToException)
 import           Pos.Lrc.Error (LrcError (UnknownBlocksForLrc))
-import           Pos.Lrc.Worker (lrcSingleShot)
+import           Pos.Lrc (lrcSingleShot)
 import           Pos.Recovery.Info (recoveryInProgress)
 import           Pos.Reporting.Methods (reportMisbehaviour)
 import           Pos.StateLock (Priority (..), modifyStateLock, withStateLockNoMetrics)

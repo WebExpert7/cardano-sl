@@ -19,7 +19,8 @@ import           Serokell.Util (listJson)
 import           System.Exit (ExitCode (..))
 import           System.Wlog (WithLogger, getLoggerName, logDebug, logInfo, logWarning)
 
-import           Pos.Communication (ActionSpec (..), OutSpecs, WorkerSpec, wrapActionSpec)
+import           Pos.Communication (OutSpecs)
+import           Pos.Communication.Util (ActionSpec (..), wrapActionSpec)
 import           Pos.Context (getOurPublicKey, ncNetworkConfig)
 import           Pos.Core (GenesisData (gdBootStakeholders, gdHeavyDelegation),
                            GenesisDelegation (..), GenesisWStakeholders (..), addressHash,
@@ -42,6 +43,7 @@ import           Pos.Util.AssertMode (inAssertMode)
 import           Pos.Util.CompileInfo (HasCompileInfo, compileInfo)
 import           Pos.Util.LogSafe (logInfoS)
 import           Pos.Worker (allWorkers)
+import           Pos.Worker.Types (WorkerSpec)
 import           Pos.WorkMode.Class (WorkMode)
 
 -- | Entry point of full node.

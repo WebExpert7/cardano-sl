@@ -7,7 +7,6 @@
 module Pos.Txp.Network.Listeners
        ( txRelays
        , txInvReqDataParams
-       , JLTxR (..)
        ) where
 
 import qualified Data.HashMap.Strict as HM
@@ -24,7 +23,7 @@ import qualified Pos.Communication.Relay as Relay
 import           Pos.Communication.Types.Protocol (MsgType (..))
 import           Pos.Core.Txp (TxAux (..), TxId)
 import           Pos.Crypto (hash)
-import           Pos.Txp.MemState (MempoolExt, MonadTxpLocal, MonadTxpMem, getMemPool, txpProcessTx)
+import           Pos.Txp.MemState (MempoolExt, MonadTxpLocal, MonadTxpMem, getMemPool, txpProcessTx, JLTxR (..))
 import           Pos.Txp.Network.Types (TxMsgContents (..))
 import           Pos.Txp.Toil.Types (MemPool (..))
 
@@ -105,13 +104,3 @@ type TxpMode ctx m =
          ]
     , MessageLimited (Relay.DataMsg TxMsgContents) m
     )
-
-----------------------------------------------------------------------------
--- Logging
-----------------------------------------------------------------------------
-
--- | Json log of one transaction being received by a node.
-data JLTxR = JLTxR
-    { jlrTxId  :: Text
-    , jlrError :: Maybe Text
-    } deriving Show

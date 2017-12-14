@@ -16,11 +16,11 @@ import           Mockable (Concurrently, Delay, Mockable, SharedAtomic, SharedAt
 import qualified Network.Broadcast.OutboundQueue as OQ
 import           Network.Broadcast.OutboundQueue.Types (Alts, peersFromList)
 
-import           Pos.Communication.Protocol (Worker)
 import           Pos.Network.DnsDomains (NodeAddr)
 import           Pos.Network.Types (Bucket (..), DnsDomains (..), NetworkConfig (..), NodeId (..),
                                     NodeType (..), resolveDnsDomains)
 import           Pos.Diffusion.Subscription.Common
+import           Pos.Worker.Types (Worker)
 
 dnsSubscriptionWorker
     :: forall pack kademlia m.

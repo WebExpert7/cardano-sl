@@ -30,8 +30,7 @@ import           Pos.Block.Slog (scCQFixedMonitorState, scCQOverallMonitorState,
                                  scCrucialValuesLabel, scDifficultyMonitorState,
                                  scEpochMonitorState, scGlobalSlotMonitorState,
                                  scLocalSlotMonitorState, slogGetLastSlots)
-import           Pos.Communication.Protocol (OutSpecs, SendActions (..), Worker, WorkerSpec,
-                                             onNewSlotWorker, worker)
+import           Pos.Communication.Protocol (OutSpecs, SendActions (..))
 import           Pos.Core (BlockVersionData (..), ChainDifficulty, FlatSlotId, SlotId (..),
                            Timestamp (Timestamp), blkSecurityParam, difficultyL, epochSlots,
                            fixedTimeCQSec, flattenSlotId, gbHeader, getSlotIndex, slotIdF,
@@ -59,7 +58,7 @@ import           Pos.Util.LogSafe (logDebugS, logInfoS, logWarningS)
 import           Pos.Util.TimeLimit (logWarningSWaitLinear)
 import           Pos.Util.Timer (Timer)
 import           Pos.Util.TimeWarp (CanJsonLog (..))
-
+import           Pos.Worker.Types (Worker, WorkerSpec, onNewSlotWorker, worker)
 
 ----------------------------------------------------------------------------
 -- All workers

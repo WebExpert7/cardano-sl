@@ -24,8 +24,7 @@ import           Pos.Binary.Class (AsBinary, Bi, asBinary, fromBinaryM)
 import           Pos.Binary.Infra ()
 import           Pos.Binary.Ssc ()
 import           Pos.Communication.Protocol (EnqueueMsg, Message, MsgType (..), Origin (..),
-                                             OutSpecs, SendActions (..), Worker, WorkerSpec,
-                                             localWorker, onNewSlotWorker)
+                                             OutSpecs, SendActions (..))
 import           Pos.Communication.Relay (DataMsg, ReqOrRes, invReqDataFlowTK)
 import           Pos.Communication.Specs (createOutSpecs)
 import           Pos.Communication.Types.Relay (InvOrData, InvOrDataTK)
@@ -65,6 +64,7 @@ import           Pos.Ssc.Types (HasSscContext (..), scBehavior, scParticipateSsc
 import           Pos.Util.AssertMode (inAssertMode)
 import           Pos.Util.LogSafe (logDebugS, logErrorS, logInfoS, logWarningS)
 import           Pos.Util.Util (getKeys, leftToPanic)
+import           Pos.Worker.Types (Worker, WorkerSpec, localWorker, onNewSlotWorker)
 
 sscWorkers
   :: (SscMessageConstraints m, SscMode ctx m)

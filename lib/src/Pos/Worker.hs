@@ -10,8 +10,8 @@ module Pos.Worker
 import           Universum
 
 import           Pos.Block.Worker (blkWorkers)
-import           Pos.Communication (OutSpecs, Relay, WorkerSpec, localWorker, relayPropagateOut,
-                                    wrapActionSpec)
+import           Pos.Communication (OutSpecs, Relay, relayPropagateOut)
+import           Pos.Communication.Util (wrapActionSpec)
 import           Pos.Context (NodeContext (..))
 import           Pos.Delegation.Listeners (delegationRelays)
 import           Pos.Delegation.Worker (dlgWorkers)
@@ -20,17 +20,19 @@ import           Pos.Launcher.Resource (NodeResources (..))
 import           Pos.Network.Types (NetworkConfig (..), SubscriptionWorker (..),
                                     topologyRunKademlia, topologySubscriptionWorker)
 import           Pos.Slotting (logNewSlotWorker, slottingWorkers)
-import           Pos.Ssc (sscRelays)
+import           Pos.Ssc.Listeners (sscRelays)
 import           Pos.Ssc.Worker (sscWorkers)
 import           Pos.Subscription.Common (subscriptionWorker)
 import           Pos.Subscription.Dht (dhtSubscriptionWorker)
 import           Pos.Subscription.Dns (dnsSubscriptionWorker)
-import           Pos.Txp (txRelays)
-import           Pos.Update (usRelays, usWorkers)
+import           Pos.Txp.Network.Listeners (txRelays)
+import           Pos.Update.Network.Listeners (usRelays)
+import           Pos.Update.Worker (usWorkers)
 import           Pos.Util (mconcatPair)
 import           Pos.Util.JsonLog (JLEvent (JLTxReceived))
 import           Pos.Util.TimeWarp (jsonLog)
 import           Pos.WorkMode (WorkMode)
+import           Pos.Worker.Types (WorkerSpec, localWorker)
 
 -- | All, but in reality not all, workers used by full node.
 allWorkers

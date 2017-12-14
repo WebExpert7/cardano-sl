@@ -19,7 +19,8 @@ import           System.Wlog (LoggerName, logInfo, modifyLoggerName)
 import           Pos.Binary ()
 import           Pos.Client.CLI (CommonNodeArgs (..), NodeArgs (..), getNodeParams)
 import qualified Pos.Client.CLI as CLI
-import           Pos.Communication (ActionSpec (..), OutSpecs, WorkerSpec, worker)
+import           Pos.Communication (OutSpecs)
+import           Pos.Communication.Util (ActionSpec (..))
 import           Pos.Context (HasNodeContext)
 import           Pos.Core (Timestamp (..), gdStartTime, genesisData)
 import           Pos.DB.DB (initNodeDBs)
@@ -36,6 +37,7 @@ import           Pos.Wallet.Web (WalletWebMode, bracketWalletWS, bracketWalletWe
 import           Pos.Wallet.Web.State (cleanupAcidStatePeriodically, flushWalletStorage,
                                        getWalletAddresses)
 import           Pos.Web (serveWeb)
+import           Pos.Worker.Types (WorkerSpec, worker)
 import           Pos.WorkMode (WorkMode)
 
 import           NodeOptions (WalletArgs (..), WalletNodeArgs (..), getWalletNodeOptions)
@@ -100,7 +102,7 @@ walletProd ::
     -> ([WorkerSpec WalletWebMode], OutSpecs)
 walletProd WalletArgs {..} = first one $ worker walletServerOuts $ \_ -> -- (_, diffusion) ->
     walletServeWebFull
-        (error "walletProd: use diffusion") -- diffusion
+        (error "walletProd: change worker type to deliver diffusion") -- diffusion
         walletDebug
         walletAddress
         (Just walletTLSParams)

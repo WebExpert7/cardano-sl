@@ -1,7 +1,15 @@
 -- | Communication-specific utility functions.
 
+{-# LANGUAGE RankNTypes #-}
+
 module Pos.Communication.Util
-       ( wrapListener
+       ( Action
+       , ActionSpec (..)
+       , mapActionSpec
+       , toAction
+       , localSpecs
+
+       , wrapListener
        , wrapActionSpec
        , wrapSendActions
        ) where
@@ -13,11 +21,29 @@ import qualified Node as N
 import           System.Wlog (LoggerName, modifyLoggerName)
 
 import           Pos.Communication.Configuration (networkWaitLogInterval)
-import           Pos.Communication.Protocol (ActionSpec (..), Conversation (..), Listener,
-                                             Message (..), SendActions (..), mapActionSpec,
-                                             mapListener)
+import           Pos.Communication.Protocol (Conversation (..), Listener,
+                                             Message (..), SendActions (..),
+                                             mapListener, VerInfo, OutSpecs)
 import           Pos.Infra.Configuration (HasInfraConfiguration)
 import           Pos.Util.TimeLimit (CanLogInParallel, logWarningWaitLinear)
+
+type Action m a = SendActions m -> m a
+
+newtype ActionSpec m a = ActionSpec (VerInfo -> Action m a)
+
+mapActionSpec
+    :: (SendActions m -> SendActions m)
+    -> (forall t. m t -> m t) -> ActionSpec m a -> ActionSpec m a
+mapActionSpec saMapper aMapper (ActionSpec f) =
+    ActionSpec $ \vI sA -> aMapper $ f vI (saMapper sA)
+
+toAction
+    :: (SendActions m -> m a) -> ActionSpec m a
+toAction h = ActionSpec $ const h
+
+localSpecs :: m a -> (ActionSpec m a, OutSpecs)
+localSpecs h = (ActionSpec $ \__vI __sA -> h, mempty)
+
 
 sendActionsWithWaitLog :: ( HasInfraConfiguration, CanLogInParallel m )
             => SendActions m
