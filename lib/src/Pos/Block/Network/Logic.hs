@@ -18,6 +18,8 @@ module Pos.Block.Network.Logic
 
        , mkBlocksRequest
        , handleBlocks
+
+       , handleUnsolicitedHeader
        ) where
 
 import           Universum

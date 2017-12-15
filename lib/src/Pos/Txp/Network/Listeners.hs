@@ -7,6 +7,8 @@
 module Pos.Txp.Network.Listeners
        ( txRelays
        , txInvReqDataParams
+       , handleTxDo
+       , TxpMode
        ) where
 
 import qualified Data.HashMap.Strict as HM

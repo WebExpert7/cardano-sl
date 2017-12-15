@@ -8,7 +8,6 @@ module Pos.Communication.Server
        , sscRelays
        , txRelays
        , delegationRelays
-       , usRelays
        ) where
 
 import           Universum
@@ -27,7 +26,6 @@ import           Pos.Delegation.Listeners (delegationRelays)
 import           Pos.Network.Types (Bucket, NodeId)
 import           Pos.Ssc.Listeners (sscRelays)
 import           Pos.Txp.Network.Listeners (txRelays)
-import           Pos.Update.Network.Listeners (usRelays)
 import           Pos.Util.JsonLog (JLEvent (JLTxReceived))
 import           Pos.Util.TimeWarp (jsonLog)
 import           Pos.WorkMode.Class (WorkMode)
@@ -44,7 +42,6 @@ allListeners oq enqueue = mconcat $
         , modifier "ssc"          $ relayListeners oq enqueue sscRelays
         , modifier "tx"           $ relayListeners oq enqueue (txRelays logTx)
         , modifier "delegation"   $ relayListeners oq enqueue delegationRelays
-        , modifier "update"       $ relayListeners oq enqueue usRelays
         ]
   where
     logTx = jsonLog . JLTxReceived

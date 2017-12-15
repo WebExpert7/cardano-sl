@@ -20,7 +20,6 @@ import           Pos.Slotting (logNewSlotWorker, slottingWorkers)
 import           Pos.Ssc.Listeners (sscRelays)
 import           Pos.Ssc.Worker (sscWorkers)
 import           Pos.Txp.Network.Listeners (txRelays)
-import           Pos.Update.Network.Listeners (usRelays)
 import           Pos.Update.Worker (usWorkers)
 import           Pos.Util (mconcatPair)
 import           Pos.Util.JsonLog (JLEvent (JLTxReceived))
@@ -49,7 +48,7 @@ allWorkers NodeResources {..} = mconcatPair
       -- MAGIC "relay" out specs.
       -- There's no cardano-sl worker for them; they're put out by the outbound
       -- queue system from time-warp (enqueueConversation on SendActions).
-    , ([], relayPropagateOut (mconcat [delegationRelays, sscRelays, txRelays logTx, usRelays] :: [Relay m]))
+    , ([], relayPropagateOut (mconcat [delegationRelays, sscRelays, txRelays logTx] :: [Relay m]))
     ]
   where
     NodeContext {..} = nrContext

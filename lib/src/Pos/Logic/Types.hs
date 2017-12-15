@@ -22,6 +22,7 @@ import           Pos.Core                  (HeaderHash, StakeholderId,
                                             ProxySKHeavy)
 import           Pos.Core.Txp              (TxId)
 import           Pos.Core.Update           (UpId, UpdateVote, UpdateProposal, BlockVersionData)
+import           Pos.Crypto                (PublicKey)
 import           Pos.Security.Params       (SecurityParams (..))
 import           Pos.Ssc.Message           (MCOpening, MCShares, MCCommitment,
                                             MCVssCertificate)
@@ -53,6 +54,9 @@ data Logic m = Logic
       -- be a tip, whereas trying to get a block that isn't in the database is
       -- normal.
     , getTip             :: m (Either GetTipError Block)
+      -- TBD useful to have this and getTip? There are existing different
+      -- implementations so presumably yes?
+    , getTipHeader       :: m (Either GetTipError BlockHeader)
 
       -- | Get state of last adopted BlockVersion. Related to update system.
     , getAdoptedBVData   :: m BlockVersionData
@@ -75,7 +79,7 @@ data Logic m = Logic
       -- See comment on the 'KeyVal' type.
     , postTx            :: KeyVal (Tagged TxMsgContents TxId) TxMsgContents m
     , postUpdate        :: KeyVal (Tagged (UpdateProposal, [UpdateVote]) UpId) (UpdateProposal, [UpdateVote]) m
-    , postVote          :: KeyVal (Tagged UpdateVote UpId) UpdateVote m
+    , postVote          :: KeyVal (Tagged UpdateVote (UpId, PublicKey, Bool)) (UpId, PublicKey, Bool) m
     , postSscCommitment :: KeyVal (Tagged MCCommitment StakeholderId) MCCommitment m
     , postSscOpening    :: KeyVal (Tagged MCOpening StakeholderId) MCOpening m
     , postSscShares     :: KeyVal (Tagged MCShares StakeholderId) MCShares m
@@ -217,6 +221,7 @@ dummyLogicLayer = LogicLayer
         , getBlockHeaders    = \_ _ -> pure (error "dummy: can't get headers")
         , getBlockHeaders'   = \_ _ -> pure (error "dummy: can't get headers")
         , getTip             = pure (error "dummy: can't get tip")
+        , getTipHeader       = pure (error "dummy: can't get tip header")
         , getAdoptedBVData   = pure (error "dummy: can't get block version data")
         , postBlockHeader    = \_ _ -> pure ()
         , postPskHeavy       = \_ -> pure False

@@ -16,6 +16,7 @@ import           System.Wlog (logInfo)
 import           Pos.Binary.Communication ()
 import           Pos.Binary.Core ()
 import           Pos.Binary.Txp ()
+import           Pos.Binary.Update ()
 import           Pos.Core.Configuration (HasCoreConfiguration, HasGenesisBlockVersionData,
                                          HasGenesisData, HasGenesisHash,
                                          HasGeneratedSecrets, HasProtocolConstants)
