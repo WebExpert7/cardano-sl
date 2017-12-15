@@ -24,9 +24,8 @@ import           Pos.Communication.Protocol (EnqueueMsg, MkListeners (..))
 import           Pos.Communication.Relay (relayListeners)
 import           Pos.Communication.Util (wrapListener)
 import           Pos.Delegation.Listeners (delegationRelays)
-import           Pos.Network.Types (Bucket, NodeId, Topology, topologySubscribers)
+import           Pos.Network.Types (Bucket, NodeId)
 import           Pos.Ssc.Listeners (sscRelays)
-import           Pos.Subscription.Common (subscriptionListeners)
 import           Pos.Txp.Network.Listeners (txRelays)
 import           Pos.Update.Network.Listeners (usRelays)
 import           Pos.Util.JsonLog (JLEvent (JLTxReceived))
@@ -37,8 +36,8 @@ import           Pos.WorkMode.Class (WorkMode)
 allListeners
     :: WorkMode ctx m
     => OQ.OutboundQ pack NodeId Bucket
-    -> Topology kademlia -> EnqueueMsg m -> MkListeners m
-allListeners oq topology enqueue = mconcat $
+    -> EnqueueMsg m -> MkListeners m
+allListeners oq enqueue = mconcat $
         -- TODO blockListeners should use 'enqueue' rather than its own
         -- block retrieval queue, no?
         [ modifier "block"        $ blockListeners oq
@@ -46,9 +45,6 @@ allListeners oq topology enqueue = mconcat $
         , modifier "tx"           $ relayListeners oq enqueue (txRelays logTx)
         , modifier "delegation"   $ relayListeners oq enqueue delegationRelays
         , modifier "update"       $ relayListeners oq enqueue usRelays
-        ] ++ [
-          modifier "subscription" $ subscriptionListeners oq subscriberNodeType
-        | Just (subscriberNodeType, _) <- [topologySubscribers topology]
         ]
   where
     logTx = jsonLog . JLTxReceived

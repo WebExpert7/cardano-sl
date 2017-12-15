@@ -12,7 +12,6 @@ module Pos.Launcher.Scenario
 import           Universum
 
 import qualified Data.HashMap.Strict as HM
-import           Data.Time.Units (Second)
 import           Formatting (bprint, build, int, sformat, shown, (%))
 import           Mockable (mapConcurrently, race)
 import           Serokell.Util (listJson)
@@ -21,17 +20,14 @@ import           System.Wlog (WithLogger, getLoggerName, logDebug, logInfo, logW
 
 import           Pos.Communication (OutSpecs)
 import           Pos.Communication.Util (ActionSpec (..), wrapActionSpec)
-import           Pos.Context (getOurPublicKey, ncNetworkConfig)
+import           Pos.Context (getOurPublicKey)
 import           Pos.Core (GenesisData (gdBootStakeholders, gdHeavyDelegation),
                            GenesisDelegation (..), GenesisWStakeholders (..), addressHash,
                            gdFtsSeed, genesisData)
 import           Pos.Crypto (pskDelegatePk)
 import qualified Pos.DB.BlockIndex as DB
-import           Pos.DHT.Real (KademliaDHTInstance (..), kademliaJoinNetworkNoThrow,
-                               kademliaJoinNetworkRetry)
 import qualified Pos.GState as GS
 import           Pos.Launcher.Resource (NodeResources (..))
-import           Pos.Network.Types (NetworkConfig (..), topologyRunKademlia)
 import           Pos.NtpCheck (NtpStatus (..), ntpSettings, withNtpCheck)
 import           Pos.Reporting (reportError)
 import           Pos.Shutdown (waitForShutdown)
@@ -56,7 +52,7 @@ runNode'
     -> [WorkerSpec m]
     -> [WorkerSpec m]
     -> WorkerSpec m
-runNode' NodeResources {..} workers' plugins' = ActionSpec $ \vI sendActions -> ntpCheck $ do
+runNode' NodeResources {..} workers' plugins' = ActionSpec $ \diffusion -> ntpCheck $ do
     logInfo $ "Built with: " <> pretty compileInfo
     nodeStartMsg
     inAssertMode $ logInfo "Assert mode on"
@@ -65,6 +61,7 @@ runNode' NodeResources {..} workers' plugins' = ActionSpec $ \vI sendActions -> 
     logInfoS $ sformat ("My public key is: "%build%", pk hash: "%build)
         pk pkHash
 
+    {- TODO must be done by diffusion layer
     -- Synchronously join the Kademlia network before doing any more.
     --
     -- See 'topologyRunKademlia' documentation: the second component is 'True'
@@ -77,6 +74,7 @@ runNode' NodeResources {..} workers' plugins' = ActionSpec $ \vI sendActions -> 
         Just (kInst, True)  -> kademliaJoinNetworkRetry kInst (kdiInitialPeers kInst) retryInterval
         Just (kInst, False) -> kademliaJoinNetworkNoThrow kInst (kdiInitialPeers kInst)
         Nothing             -> return ()
+    -}
 
     let genesisStakeholders = gdBootStakeholders genesisData
     logInfo $ sformat
@@ -104,7 +102,7 @@ runNode' NodeResources {..} workers' plugins' = ActionSpec $ \vI sendActions -> 
 
     waitSystemStart
     let unpackPlugin (ActionSpec action) =
-            action vI sendActions `catch` reportHandler
+            action diffusion `catch` reportHandler
 
     -- Either all the plugins are cancelled in the case one of them
     -- throws an error, or otherwise when the shutdown signal comes,

@@ -92,6 +92,12 @@ data Logic m = Logic
     , recoveryInProgress :: m Bool
 
     , securityParams     :: SecurityParams
+
+      -- Characterize bogus block headers.
+    , checkBlockHeader :: BlockHeader -> m Bool
+
+      -- Characterize bogus blocks.
+    , checkBlock       :: Block -> m Bool
     }
 
 -- | First iteration solution to the inv/req/data/mempool system.
@@ -223,6 +229,8 @@ dummyLogicLayer = LogicLayer
         , postSscVssCert     = dummyKeyVal
         , recoveryInProgress = pure False
         , securityParams     = def
+        , checkBlockHeader   = \_ -> pure True
+        , checkBlock         = \_ -> pure True
         }
 
     dummyKeyVal :: Applicative m => KeyVal key val m

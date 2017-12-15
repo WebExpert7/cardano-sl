@@ -77,8 +77,8 @@ actionWithWallet sscParams nodeParams wArgs@WalletArgs {..} =
             syncWallets
     runNodeWithInit init nr =
         let (ActionSpec f, outs) = runNode nr allPlugins
-         in (ActionSpec $ \v s -> init >> f v s, outs)
-    convPlugins = (, mempty) . map (\act -> ActionSpec $ \__vI __sA -> act)
+         in (ActionSpec $ \s -> init >> f s, outs)
+    convPlugins = (, mempty) . map (\act -> ActionSpec $ \__sA -> act)
     syncWallets :: WalletWebMode ()
     syncWallets = do
         sks <- getWalletAddresses >>= mapM getSKById
@@ -100,9 +100,9 @@ walletProd ::
        )
     => WalletArgs
     -> ([WorkerSpec WalletWebMode], OutSpecs)
-walletProd WalletArgs {..} = first one $ worker walletServerOuts $ \_ -> -- (_, diffusion) ->
+walletProd WalletArgs {..} = first one $ worker walletServerOuts $ \diffusion ->
     walletServeWebFull
-        (error "walletProd: change worker type to deliver diffusion") -- diffusion
+        diffusion
         walletDebug
         walletAddress
         (Just walletTLSParams)

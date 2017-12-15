@@ -10,6 +10,8 @@ module Pos.Wallet.Web.Mode
        , MonadWalletWebSockets
        , MonadFullWalletWebMode
 
+       , walletWebModeToRealMode
+
        , getBalanceDefault
        , getOwnUtxosDefault
        , getNewAddressWebWallet
@@ -50,7 +52,7 @@ import           Pos.DB.DB (gsAdoptedBVDataDefault)
 import           Pos.DB.Rocks (dbDeleteDefault, dbGetDefault, dbIterSourceDefault, dbPutDefault,
                                dbWriteBatchDefault)
 import           Pos.Infra.Configuration (HasInfraConfiguration)
-import           Pos.KnownPeers (MonadFormatPeers (..), MonadKnownPeers (..))
+import           Pos.KnownPeers (MonadFormatPeers (..))
 import           Pos.Launcher (HasConfigurations)
 import           Pos.Network.Types (HasNodeType (..))
 import           Pos.Recovery ()
@@ -73,11 +75,10 @@ import           Pos.Util.JsonLog (HasJsonLogConfig (..), jsonLogDefault)
 import           Pos.Util.LoggerName (HasLoggerName' (..), getLoggerNameDefault,
                                       modifyLoggerNameDefault)
 import qualified Pos.Util.Modifier as MM
-import qualified Pos.Util.OutboundQueue as OQ.Reader
 import           Pos.Util.TimeWarp (CanJsonLog (..))
 import           Pos.Util.UserSecret (HasUserSecret (..))
 import           Pos.Wallet.Web.Util (decodeCTypeOrFail)
-import           Pos.WorkMode (MinWorkMode, RealModeContext (..))
+import           Pos.WorkMode (MinWorkMode, RealModeContext (..), RealMode)
 
 import           Pos.Wallet.Redirect (MonadBlockchainInfo (..), MonadUpdates (..),
                                       applyLastUpdateWebWallet, blockchainSlotDurationWebWallet,
@@ -103,6 +104,15 @@ data WalletWebModeContext = WalletWebModeContext
 
 -- It's here because of TH for lens
 type WalletWebMode = Mtl.ReaderT WalletWebModeContext Production
+
+walletWebModeToRealMode
+    :: WalletState
+    -> ConnectionsVar
+    -> WalletWebMode t
+    -> RealMode WalletMempoolExt t
+walletWebModeToRealMode ws cv act = do
+    rmc <- ask
+    lift $ runReaderT act (WalletWebModeContext ws cv rmc)
 
 makeLensesWith postfixLFields ''WalletWebModeContext
 
@@ -177,7 +187,6 @@ type MonadWalletWebMode ctx m =
     , MonadRecoveryInfo m
     , MonadBListener m
     , MonadReader ctx m
-    , MonadKnownPeers m
     , MonadFormatPeers m
     , HasLens StateLock ctx StateLock
     , HasNodeType ctx
@@ -296,11 +305,9 @@ instance (HasConfiguration, HasSscConfiguration, HasInfraConfiguration, HasCompi
     getLocalHistory = getLocalHistoryDefault
     saveTx = saveTxDefault
 
-instance MonadKnownPeers WalletWebMode where
-    updatePeersBucket = OQ.Reader.updatePeersBucketReader (rmcOutboundQ . wwmcRealModeContext)
-
 instance MonadFormatPeers WalletWebMode where
-    formatKnownPeers = OQ.Reader.formatKnownPeersReader (rmcOutboundQ . wwmcRealModeContext)
+    -- Use the RealMode instance (ReaderT RealModeContext Production)
+    formatKnownPeers formatter = Mtl.withReaderT wwmcRealModeContext (formatKnownPeers formatter)
 
 type instance MempoolExt WalletWebMode = WalletMempoolExt
 

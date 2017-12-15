@@ -25,24 +25,28 @@ import           Servant.Server (Handler)
 import           System.Wlog (logInfo)
 
 import           Pos.Communication (ActionSpec (..), OutSpecs)
+import           Pos.Context (NodeContext (..))
 import           Pos.Diffusion.Types (Diffusion)
 import           Pos.Launcher.Configuration (HasConfigurations)
-import           Pos.Launcher.Resource (NodeResources)
-import           Pos.Launcher.Runner (runRealBasedMode)
+import           Pos.Launcher.Resource (NodeResources (..), hoistNodeResources)
+import           Pos.Launcher.Runner (elimRealMode, runServer)
+import           Pos.Reporting.Ekg (EkgNodeMetrics (..))
 import           Pos.Util.CompileInfo (HasCompileInfo)
 import           Pos.Util.TimeWarp (NetworkAddress)
 import           Pos.Wallet.WalletMode (WalletMempoolExt)
 import           Pos.Wallet.Web.Methods (addInitialRichAccount)
 import           Pos.Wallet.Web.Mode (WalletWebMode, WalletWebModeContext (..),
-                                      WalletWebModeContextTag)
+                                      WalletWebModeContextTag, walletWebModeToRealMode)
 import           Pos.Wallet.Web.Server.Launcher (walletApplication, walletServeImpl, walletServer)
 import           Pos.Wallet.Web.Sockets (ConnectionsVar)
 import           Pos.Wallet.Web.State (WalletState)
 import           Pos.Web (TlsParams)
+import           Pos.WorkMode (RealMode)
 
 -- | 'WalletWebMode' runner.
 runWRealMode
-    :: ( HasConfigurations
+    :: forall a .
+       ( HasConfigurations
        , HasCompileInfo
        )
     => WalletState
@@ -50,18 +54,26 @@ runWRealMode
     -> NodeResources WalletMempoolExt WalletWebMode
     -> (ActionSpec WalletWebMode a, OutSpecs)
     -> Production a
-runWRealMode db conn res spec = do
-    runRealBasedMode
-        (Mtl.withReaderT (WalletWebModeContext db conn))
-        (Mtl.withReaderT (\(WalletWebModeContext _ _ rmc) -> rmc))
-        res
-        spec
+runWRealMode db conn res (action, outSpecs) =
+    elimRealMode hoistedNr serverRealMode
+  where
+    NodeContext {..} = nrContext res
+    ekgNodeMetrics = EkgNodeMetrics
+        (nrEkgStore res)
+        (runProduction . elimRealMode hoistedNr . walletWebModeToRealMode db conn)
+    hoistedNr = hoistNodeResources nat res
+    serverWalletWebMode :: WalletWebMode a
+    serverWalletWebMode = runServer ncNodeParams ekgNodeMetrics outSpecs action
+    serverRealMode :: RealMode WalletMempoolExt a
+    serverRealMode = walletWebModeToRealMode db conn serverWalletWebMode
+    nat :: forall t . WalletWebMode t -> RealMode WalletMempoolExt t
+    nat = Mtl.withReaderT (\rmc -> (WalletWebModeContext db conn rmc))
 
 walletServeWebFull
     :: ( HasConfigurations
        , HasCompileInfo
        )
-    => Diffusion WalletWebMode -- FIXME ideally Diffusion would not run in WalletWebMode.
+    => Diffusion WalletWebMode
     -> Bool                    -- whether to include genesis keys
     -> NetworkAddress          -- ^ IP and Port to listen
     -> Maybe TlsParams

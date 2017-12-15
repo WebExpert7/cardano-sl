@@ -63,6 +63,7 @@ library
 
                         -- cardano-sl-client & cardano-sl-generator
                         Pos.Communication.Limits
+                        Pos.Communication.Limits.Given
                         Pos.Communication.Message
                         Pos.Communication.Types
                         Pos.Communication.Util
@@ -70,13 +71,13 @@ library
                         -- Statistics
                         Pos.Statistics
 
-                        -- Subscription
-                        Pos.Subscription.Common
-                        Pos.Subscription.Dns
-                        Pos.Subscription.Dht
-
                         -- Recovery
                         Pos.Recovery
+
+                        -- Reporting
+                        Pos.Reporting.Health.Types
+                        Pos.Reporting.Ekg
+                        Pos.Reporting.Statsd
 
                         -- Client CLI
                         Pos.Client.CLI

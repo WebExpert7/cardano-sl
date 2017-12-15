@@ -15,16 +15,10 @@ import           Pos.Communication.Util (wrapActionSpec)
 import           Pos.Context (NodeContext (..))
 import           Pos.Delegation.Listeners (delegationRelays)
 import           Pos.Delegation.Worker (dlgWorkers)
-import           Pos.DHT.Workers (dhtWorkers)
 import           Pos.Launcher.Resource (NodeResources (..))
-import           Pos.Network.Types (NetworkConfig (..), SubscriptionWorker (..),
-                                    topologyRunKademlia, topologySubscriptionWorker)
 import           Pos.Slotting (logNewSlotWorker, slottingWorkers)
 import           Pos.Ssc.Listeners (sscRelays)
 import           Pos.Ssc.Worker (sscWorkers)
-import           Pos.Subscription.Common (subscriptionWorker)
-import           Pos.Subscription.Dht (dhtSubscriptionWorker)
-import           Pos.Subscription.Dns (dnsSubscriptionWorker)
 import           Pos.Txp.Network.Listeners (txRelays)
 import           Pos.Update.Network.Listeners (usRelays)
 import           Pos.Update.Worker (usWorkers)
@@ -52,28 +46,10 @@ allWorkers NodeResources {..} = mconcatPair
     , wrap' "delegation" $ dlgWorkers
     , wrap' "slotting"   $ (properSlottingWorkers, mempty)
 
-    , wrap' "subscription" $ case topologySubscriptionWorker (ncTopology ncNetworkConfig) of
-        Just (SubscriptionWorkerBehindNAT dnsDomains) ->
-          subscriptionWorker (dnsSubscriptionWorker ncNetworkConfig dnsDomains
-                                                    ncSubscriptionKeepAliveTimer)
-        Just (SubscriptionWorkerKademlia kinst nodeType valency fallbacks) ->
-          subscriptionWorker (dhtSubscriptionWorker kinst nodeType valency fallbacks)
-        Nothing ->
-          mempty
-
       -- MAGIC "relay" out specs.
       -- There's no cardano-sl worker for them; they're put out by the outbound
       -- queue system from time-warp (enqueueConversation on SendActions).
     , ([], relayPropagateOut (mconcat [delegationRelays, sscRelays, txRelays logTx, usRelays] :: [Relay m]))
-
-      -- Kademlia has some workers to run.
-      --
-      -- FIXME: perhaps these shouldn't be considered workers, but rather
-      -- spawned when the DHT instance is created and killed when it's
-      -- released.
-    , case topologyRunKademlia (ncTopology ncNetworkConfig) of
-        Just (kinst, _) -> dhtWorkers kinst
-        Nothing         -> mempty
     ]
   where
     NodeContext {..} = nrContext

@@ -23,14 +23,14 @@ import           Pos.Block.Configuration (networkDiameter)
 import           Pos.Block.Logic (calcChainQualityFixedTime, calcChainQualityM,
                                   calcOverallChainQuality, createGenesisBlockAndApply,
                                   createMainBlockAndApply, needRecovery)
-import           Pos.Block.Network.Announce (announceBlock, announceBlockOuts)
+import           Pos.Block.Network.Announce (announceBlockOuts)
 import           Pos.Block.Network.Logic (requestTipOuts, triggerRecovery)
 import           Pos.Block.Network.Retrieval (retrievalWorker)
 import           Pos.Block.Slog (scCQFixedMonitorState, scCQOverallMonitorState, scCQkMonitorState,
                                  scCrucialValuesLabel, scDifficultyMonitorState,
                                  scEpochMonitorState, scGlobalSlotMonitorState,
                                  scLocalSlotMonitorState, slogGetLastSlots)
-import           Pos.Communication.Protocol (OutSpecs, SendActions (..))
+import           Pos.Communication.Protocol (OutSpecs)
 import           Pos.Core (BlockVersionData (..), ChainDifficulty, FlatSlotId, SlotId (..),
                            Timestamp (Timestamp), blkSecurityParam, difficultyL, epochSlots,
                            fixedTimeCQSec, flattenSlotId, gbHeader, getSlotIndex, slotIdF,
@@ -45,6 +45,8 @@ import qualified Pos.DB.BlockIndex as DB
 import           Pos.Delegation.DB (getPskByIssuer)
 import           Pos.Delegation.Logic (getDlgTransPsk)
 import           Pos.Delegation.Types (ProxySKBlockInfo)
+import           Pos.Diffusion.Types (Diffusion)
+import qualified Pos.Diffusion.Types as Diffusion (Diffusion (announceBlock))
 import qualified Pos.Lrc.DB as LrcDB (getLeadersForEpoch)
 import           Pos.Recovery.Info (recoveryCommGuard)
 import           Pos.Reporting (MetricMonitor (..), MetricMonitorState, noReportMonitor,
@@ -92,18 +94,18 @@ informerWorker =
 -- TODO [CSL-1606] Using 'fork' here is quite bad, it's a temporary solution.
 blkCreatorWorker :: BlockWorkMode ctx m => (WorkerSpec m, OutSpecs)
 blkCreatorWorker =
-    onNewSlotWorker True announceBlockOuts $ \slotId sendActions ->
+    onNewSlotWorker True announceBlockOuts $ \slotId diffusion ->
         recoveryCommGuard "onNewSlot worker, blkCreatorWorker" $
             void $ fork $
-            blockCreator slotId sendActions `catchAny` onBlockCreatorException
+            blockCreator slotId diffusion `catchAny` onBlockCreatorException
   where
     onBlockCreatorException = reportOrLogE "blockCreator failed: "
 
 
 blockCreator
     :: BlockWorkMode ctx m
-    => SlotId -> SendActions m -> m ()
-blockCreator (slotId@SlotId {..}) sendActions = do
+    => SlotId -> Diffusion m -> m ()
+blockCreator (slotId@SlotId {..}) diffusion = do
 
     -- First of all we create genesis block if necessary.
     mGenBlock <- createGenesisBlockAndApply siEpoch
@@ -158,10 +160,10 @@ blockCreator (slotId@SlotId {..}) sendActions = do
                   "delegated by heavy psk: "%build)
                  ourHeavyPsk
            | weAreLeader ->
-                 onNewSlotWhenLeader slotId Nothing sendActions
+                 onNewSlotWhenLeader slotId Nothing diffusion
            | heavyWeAreDelegate ->
                  let pske = swap <$> dlgTransM
-                 in onNewSlotWhenLeader slotId pske sendActions
+                 in onNewSlotWhenLeader slotId pske diffusion
            | otherwise -> pass
 
 onNewSlotWhenLeader
@@ -169,7 +171,7 @@ onNewSlotWhenLeader
     => SlotId
     -> ProxySKBlockInfo
     -> Worker m
-onNewSlotWhenLeader slotId pske SendActions {..} = do
+onNewSlotWhenLeader slotId pske diffusion = do
     let logReason =
             sformat ("I have a right to create a block for the slot "%slotIdF%" ")
                     slotId
@@ -196,7 +198,7 @@ onNewSlotWhenLeader slotId pske SendActions {..} = do
             logInfoS $
                 sformat ("Created a new block:\n" %build) createdBlk
             jsonLog $ jlCreatedBlock (Right createdBlk)
-            void $ announceBlock enqueueMsg $ createdBlk ^. gbHeader
+            void $ Diffusion.announceBlock diffusion $ createdBlk ^. gbHeader
     whenNotCreated = logWarningS . (mappend "I couldn't create a new block: ")
 
 ----------------------------------------------------------------------------
@@ -212,8 +214,8 @@ recoveryTriggerWorker =
 recoveryTriggerWorkerImpl
     :: forall ctx m.
        (BlockWorkMode ctx m)
-    => SendActions m -> m ()
-recoveryTriggerWorkerImpl SendActions{..} = do
+    => Diffusion m -> m ()
+recoveryTriggerWorkerImpl diffusion = do
     -- Initial heuristic delay is needed (the system takes some time
     -- to initialize).
     delay $ sec 3
@@ -225,7 +227,7 @@ recoveryTriggerWorkerImpl SendActions{..} = do
         -- have recovery variable in place now and tries to fill it
         -- (by requesting tips) if it's empty.
         whenM (needRecovery @ctx) $ do
-            triggerRecovery enqueueMsg
+            triggerRecovery diffusion
             -- We don't want to ask for tips too frequently.
             -- E.g. there may be a tip processing mistake so that we
             -- never go into recovery even though we recieve
