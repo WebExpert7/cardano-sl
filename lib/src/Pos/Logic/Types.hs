@@ -21,8 +21,8 @@ import           Pos.Core.Block            (Block, BlockHeader)
 import           Pos.Core                  (HeaderHash, StakeholderId,
                                             ProxySKHeavy)
 import           Pos.Core.Txp              (TxId)
-import           Pos.Core.Update           (UpId, UpdateVote, UpdateProposal, BlockVersionData)
-import           Pos.Crypto                (PublicKey)
+import           Pos.Core.Update           (UpId, UpdateVote, UpdateProposal, BlockVersionData,
+                                            VoteId)
 import           Pos.Security.Params       (SecurityParams (..))
 import           Pos.Ssc.Message           (MCOpening, MCShares, MCCommitment,
                                             MCVssCertificate)
@@ -79,7 +79,7 @@ data Logic m = Logic
       -- See comment on the 'KeyVal' type.
     , postTx            :: KeyVal (Tagged TxMsgContents TxId) TxMsgContents m
     , postUpdate        :: KeyVal (Tagged (UpdateProposal, [UpdateVote]) UpId) (UpdateProposal, [UpdateVote]) m
-    , postVote          :: KeyVal (Tagged UpdateVote (UpId, PublicKey, Bool)) (UpId, PublicKey, Bool) m
+    , postVote          :: KeyVal (Tagged UpdateVote VoteId) UpdateVote m
     , postSscCommitment :: KeyVal (Tagged MCCommitment StakeholderId) MCCommitment m
     , postSscOpening    :: KeyVal (Tagged MCOpening StakeholderId) MCOpening m
     , postSscShares     :: KeyVal (Tagged MCShares StakeholderId) MCShares m
