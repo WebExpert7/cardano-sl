@@ -1,0 +1,16 @@
+#./scripts/tls-files/server.crt
+
+./.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin/cardano-node   \
+  --web                                           \
+  --no-ntp                                                       \
+  --configuration-file ./lib/configuration.yaml            \
+  --configuration-key mainnet_full     \
+  --tlscert ./scripts/tls-files/server.crt   \
+  --tlskey ./scripts/tls-files/server.key    \
+  --tlsca ./scripts/tls-files/ca.crt         \
+  --log-config ./scripts/log-templates/log-config-qa.yaml   \
+  --topology "topology-mainnet"                                   \
+  --logs-prefix "state-wallet-mainnet/logs"                               \
+  --db-path "state-wallet-mainnet/db"                                     \
+  --wallet-db-path 'state-wallet-mainnet/wallet-db'        \
+  --keyfile state-wallet-mainnet/secret.key                   
