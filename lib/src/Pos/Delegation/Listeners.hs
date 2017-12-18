@@ -4,8 +4,7 @@
 -- | Server listeners for delegation logic
 
 module Pos.Delegation.Listeners
-       ( delegationRelays
-       , handlePsk
+       ( handlePsk
        , DlgListenerConstraint
        ) where
 
@@ -17,8 +16,8 @@ import           System.Wlog (WithLogger, logDebug, logWarning)
 
 import           Pos.Binary.Delegation ()
 import           Pos.Communication.Limits.Types (MessageLimited)
-import           Pos.Communication.Protocol (Message, MsgType (..))
-import           Pos.Communication.Relay (DataMsg, DataParams (..), Relay (..))
+import           Pos.Communication.Protocol (Message)
+import           Pos.Communication.Relay (DataMsg)
 import           Pos.Core (ProxySKHeavy)
 import           Pos.DB.Class (MonadBlockDBRead, MonadGState)
 import           Pos.Delegation.Class (MonadDelegation)
@@ -48,17 +47,6 @@ type DlgListenerConstraint ctx m
        , WithLogger m
        , DlgMessageConstraint m
        , HasDlgConfiguration)
-
--- | Listeners for requests related to delegation processing.
-delegationRelays
-    :: forall ctx m. DlgListenerConstraint ctx m
-    => [Relay m]
-delegationRelays = [ pskHeavyRelay ]
-
-pskHeavyRelay
-    :: forall ctx m . DlgListenerConstraint ctx m
-    => Relay m
-pskHeavyRelay = Data $ DataParams MsgTransaction $ \_ _ -> handlePsk
 
 handlePsk :: DlgListenerConstraint ctx m => ProxySKHeavy -> m Bool
 handlePsk pSk = do

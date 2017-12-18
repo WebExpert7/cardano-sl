@@ -21,16 +21,11 @@ import           Serokell.Util (sec)
 import           System.IO (hFlush, stdout)
 import           System.Wlog (CanLog, HasLoggerName, logInfo)
 
-import           Pos.Communication (OutSpecs (..), delegationRelays, relayPropagateOut,
-                                    txRelays, usRelays)
+import           Pos.Communication (OutSpecs (..))
 import           Pos.Crypto (AHash (..), fullPublicKeyF, hashHexF)
 import           Pos.Diffusion.Types (Diffusion)
-import           Pos.Launcher.Configuration (HasConfigurations)
 import           Pos.Txp (genesisUtxo, unGenesisUtxo)
 import           Pos.Util.CompileInfo (HasCompileInfo)
-import           Pos.Util.JsonLog (JLEvent (JLTxReceived))
-import           Pos.Util.TimeWarp (jsonLog)
-import           Pos.WorkMode (EmptyMempoolExt, RealMode, RealModeContext)
 import           Pos.Worker.Types (WorkerSpec, worker)
 
 import           AuxxOptions (AuxxOptions (..))
@@ -50,7 +45,7 @@ auxxPlugin ::
     => AuxxOptions
     -> Either WithCommandAction Text
     -> (WorkerSpec m, OutSpecs)
-auxxPlugin auxxOptions repl = worker runCmdOuts $ \diffusion -> do
+auxxPlugin auxxOptions repl = worker mempty $ \diffusion -> do
     logInfo $ sformat ("Length of genesis utxo: " %int)
                       (length $ unGenesisUtxo genesisUtxo)
     rawExec (Just Dict) auxxOptions (Just diffusion) repl
@@ -145,31 +140,6 @@ withValueText cont = \case
     Lang.ValueSendMode sm -> cont (show sm)
     Lang.ValueList vs -> for_ vs $
         withValueText (cont . mappend "  ")
-
-
-
-----------------------------------------------------------------------------
--- Something hacky
-----------------------------------------------------------------------------
-
--- This solution is hacky, but will work for now
-runCmdOuts :: (HasConfigurations,HasCompileInfo) => OutSpecs
-runCmdOuts =
-    relayPropagateOut $
-    mconcat
-        [ usRelays
-              @(RealModeContext EmptyMempoolExt)
-              @(RealMode EmptyMempoolExt)
-        , delegationRelays
-              @(RealModeContext EmptyMempoolExt)
-              @(RealMode EmptyMempoolExt)
-        , txRelays
-              @(RealModeContext EmptyMempoolExt)
-              @(RealMode EmptyMempoolExt)
-              logTx
-        ]
-  where
-    logTx = jsonLog . JLTxReceived
 
 ----------------------------------------------------------------------------
 -- Extra logging

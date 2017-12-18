@@ -8,6 +8,7 @@ import           Unsafe (unsafeFromJust)
 import           Control.Exception.Safe (handle)
 import           Data.Constraint (Dict (..))
 import           Formatting (sformat, shown, (%))
+import           JsonLog (jsonLog)
 import           Mockable (Production, currentTime, runProduction)
 import qualified Network.Transport.TCP as TCP (TCPAddr (..))
 import qualified System.IO.Temp as Temp
@@ -20,7 +21,8 @@ import           Pos.Core (ConfigurationError, Timestamp (..), gdStartTime, gene
 import           Pos.DB.DB (initNodeDBs)
 import           Pos.Diffusion.Types (DiffusionLayer (..))
 import           Pos.Diffusion.Full (diffusionLayerFull)
-import           Pos.Logic.Types (LogicLayer (..), dummyLogicLayer)
+import           Pos.Logic.Full (logicLayerFull)
+import           Pos.Logic.Types (LogicLayer (..))
 import           Pos.Launcher (HasConfigurations, NodeParams (..), NodeResources,
                                bracketNodeResources, loggerBracket, lpConsoleLog, runNode,
                                elimRealMode, withConfigurations, hoistNodeResources)
@@ -122,11 +124,12 @@ action opts@AuxxOptions {..} command = do
           let sscParams = CLI.gtSscParams cArgs vssSK (npBehaviorConfig nodeParams)
           bracketNodeResources nodeParams sscParams txpGlobalSettings initNodeDBs $ \nr ->
               elimRealMode (hoistNodeResources toRealMode nr) $ toRealMode $
-                  diffusionLayerFull (npNetworkConfig nodeParams) Nothing $ \withLogic -> do
-                      diffusionLayer <- withLogic (logic dummyLogicLayer) -- TODO use real logic layer.
-                      let modifier = if aoStartMode == WithNode then runNodeWithSinglePlugin nr else identity
-                          (ActionSpec auxxModeAction, _) = modifier (auxxPlugin opts command)
-                      runLogicLayer dummyLogicLayer (runDiffusionLayer diffusionLayer (auxxModeAction (diffusion diffusionLayer)))
+                  logicLayerFull jsonLog $ \logicLayer -> do
+                      diffusionLayerFull (npNetworkConfig nodeParams) Nothing $ \withLogic -> do
+                          diffusionLayer <- withLogic (logic logicLayer)
+                          let modifier = if aoStartMode == WithNode then runNodeWithSinglePlugin nr else identity
+                              (ActionSpec auxxModeAction, _) = modifier (auxxPlugin opts command)
+                          runLogicLayer logicLayer (runDiffusionLayer diffusionLayer (auxxModeAction (diffusion diffusionLayer)))
   where
     cArgs@CLI.CommonNodeArgs {..} = aoCommonNodeArgs
     conf = CLI.configurationOptions (CLI.commonArgs cArgs)

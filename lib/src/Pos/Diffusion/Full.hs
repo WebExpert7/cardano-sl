@@ -184,7 +184,6 @@ diffusionLayerFull networkConfig mEkgNodeMetrics expectLogic =
             dhtWorkerOutSpecs = mempty
 
             mkL :: MkListeners d
-            --mkL = error "listeners" -- allListeners oq (ncTopology networkConfig) enqueue
             mkL = mconcat $
                 [ lmodifier "block"       $ Diffusion.Block.blockListeners logic oq
                 , lmodifier "tx"          $ Diffusion.Txp.txListeners logic oq enqueue

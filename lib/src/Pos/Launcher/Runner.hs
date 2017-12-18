@@ -22,6 +22,7 @@ import qualified Control.Monad.Reader as Mtl
 import           Control.Monad.Fix (MonadFix)
 import           Data.Default (Default)
 import           Data.Reflection (give)
+import           JsonLog (jsonLog)
 import           Mockable.Production (Production (..))
 
 import           Pos.Binary ()
@@ -36,7 +37,8 @@ import           Pos.Launcher.Resource (NodeResources (..), hoistNodeResources)
 import           Pos.Diffusion.Types (DiffusionLayer (..), Diffusion (..))
 import           Pos.Diffusion.Full (diffusionLayerFull)
 import           Pos.Diffusion.Full.Types (DiffusionWorkMode)
-import           Pos.Logic.Types (LogicLayer (..), Logic, dummyLogicLayer)
+import           Pos.Logic.Full (logicLayerFull, LogicWorkMode)
+import           Pos.Logic.Types (LogicLayer (..), Logic)
 import           Pos.Network.Types (NetworkConfig (..), topologyRoute53HealthCheckEnabled)
 import           Pos.Recovery.Instance ()
 import           Pos.Reporting.Statsd (withStatsd)
@@ -82,7 +84,6 @@ import           Pos.WorkMode (RealMode, RealModeContext (..), WorkMode)
 --   at all. See why? If  d  abstracts over terms which are provided by a
 --    Diffusion d  then it makes 0 sense to have the diffusion layer work
 --   within  d . There's a cycle.
---
 cslMain
     :: forall m t .
        ( )
@@ -172,8 +173,9 @@ elimRealMode NodeResources {..} action = do
 -- Also brings up ekg monitoring, route53 health check, statds, according to
 -- parameters. 
 runServer
-    :: forall m t .
+    :: forall ctx m t .
        ( DiffusionWorkMode m
+       , LogicWorkMode ctx m
        , MonadFix m
        )
     => NodeParams
@@ -182,14 +184,16 @@ runServer
     -> ActionSpec m t
     -> m t
 runServer NodeParams {..} ekgNodeMetrics _ (ActionSpec act) =
-    diffusionLayerFull npNetworkConfig (Just ekgNodeMetrics) $ \withLogic -> do
-        diffusionLayer <- withLogic (logic dummyLogicLayer)
-        when npEnableMetrics (registerEkgMetrics ekgStore)
-        runDiffusionLayer diffusionLayer $
-            maybeWithRoute53 (enmElim ekgNodeMetrics (healthStatus (diffusion diffusionLayer))) $
-            maybeWithEkg $
-            maybeWithStatsd $
-            act (diffusion diffusionLayer)
+    logicLayerFull jsonLog $ \logicLayer -> do
+        diffusionLayerFull npNetworkConfig (Just ekgNodeMetrics) $ \withLogic -> do
+            diffusionLayer <- withLogic (logic logicLayer)
+            when npEnableMetrics (registerEkgMetrics ekgStore)
+            runLogicLayer logicLayer $
+                runDiffusionLayer diffusionLayer $
+                maybeWithRoute53 (enmElim ekgNodeMetrics (healthStatus (diffusion diffusionLayer))) $
+                maybeWithEkg $
+                maybeWithStatsd $
+                act (diffusion diffusionLayer)
   where
     ekgStore = enmStore ekgNodeMetrics
     (hcHost, hcPort) = case npRoute53Params of

@@ -131,13 +131,10 @@ library
                         Pos.Delegation.Listeners
                         Pos.Delegation.Worker
 
-                        Pos.Ssc.Listeners
                         Pos.Ssc.Worker
 
-                        Pos.Txp.Network
                         Pos.Txp.Network.Listeners
 
-                        Pos.Update.Network
                         Pos.Update.Network.Listeners
                         Pos.Update.Worker
 
