@@ -1,0 +1,1299 @@
+mdupont@debian-build-speed:~/experiments/cardano-sl$ scripts/build/cardano-sl.sh
+Going to build:  cardano-sl-networking cardano-sl-binary cardano-sl-util cardano-sl-crypto cardano-sl-core cardano-sl-db cardano-sl-lrc cardano-sl-infra cardano-sl-ssc cardano-sl-txp cardano-sl-update cardano-sl-delegation cardano-sl-block cardano-sl cardano-sl-node cardano-sl-client cardano-sl-generator cardano-sl-auxx cardano-sl-tools cardano-sl-explorer cardano-sl-wallet cardano-sl-wallet-new
+Building cardano-sl-networking
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-networking
+
+cardano-sl-block-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-core-1.0.3: unregistering (Dependency being unregistered: cardano-sl-crypto-1.0.3)
+cardano-sl-crypto-1.0.3: unregistering (Dependency being unregistered: cardano-sl-util-1.0.3)
+cardano-sl-db-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-delegation-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-infra-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-lrc-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-networking-1.0.3: unregistering (missing dependencies: network-transport-inmemory)
+cardano-sl-ssc-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-txp-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-update-1.0.3: unregistering (Dependency being unregistered: cardano-sl-core-1.0.3)
+cardano-sl-util-1.0.3: unregistering (Dependency being unregistered: cardano-sl-networking-1.0.3)
+network-transport-inmemory-0.5.1: build (lib)
+network-transport-inmemory-0.5.1: copy/register
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-networking
+
+cardano-sl-networking-1.0.3: configure (lib + exe + test + bench)
+Configuring cardano-sl-networking-1.0.3...
+cardano-sl-networking-1.0.3: build (lib + exe + test + bench)
+Preprocessing library cardano-sl-networking-1.0.3...
+[ 1 of 39] Node.Message.Decoder
+[ 2 of 39] Node.Message.Class
+[ 3 of 39] Node.Message.Binary
+[ 4 of 39] Network.Transport.Abstract
+[ 5 of 39] Network.Transport.Concrete
+[ 6 of 39] Network.Transport.Concrete.TCP
+[ 7 of 39] Network.QDisc.Fair
+[ 8 of 39] Network.Discovery.Abstract
+[ 9 of 39] Network.Discovery.Transport.Kademlia
+[10 of 39] Network.Broadcast.OutboundQueue.Types
+[11 of 39] Network.Broadcast.OutboundQueue.ConcurrentMultiQueue
+[12 of 39] NTP.Util
+[13 of 39] NTP.Packet
+[14 of 39] Mockable.Class
+[15 of 39] Mockable.CurrentTime
+[16 of 39] Mockable.Exception
+[17 of 39] Mockable.Concurrent
+[18 of 39] Mockable.Metrics
+[19 of 39] Mockable.SharedAtomic
+[20 of 39] Mockable.SharedExclusive
+[21 of 39] NTP.Client
+[22 of 39] Mockable.Channel
+[23 of 39] Mockable.Instances
+[24 of 39] Mockable.Monad
+[25 of 39] Mockable.Production
+[26 of 39] NTP.Example
+[27 of 39] Mockable
+[28 of 39] Network.Broadcast.OutboundQueue
+[29 of 39] Network.Broadcast.OutboundQueue.Demo
+[30 of 39] JsonLog.Event
+[31 of 39] JsonLog.CanJsonLog
+[32 of 39] JsonLog.JsonLogT
+[33 of 39] JsonLog
+[34 of 39] Data.NonEmptySet
+[35 of 39] Node.Internal
+[36 of 39] Node.Conversation
+[37 of 39] Node
+[38 of 39] Node.Util.Monitor
+[39 of 39] Bench.Network.Commons
+Preprocessing executable 'discovery' for cardano-sl-networking-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/discovery/discovery ...
+Preprocessing executable 'ping-pong' for cardano-sl-networking-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/ping-pong/ping-pong ...
+Preprocessing test suite 'cardano-sl-networking-test' for
+cardano-sl-networking-1.0.3...
+[1 of 5] Test.Util
+[2 of 5] Test.NodeSpec
+[3 of 5] Test.Network.Broadcast.OutboundQueueSpec
+[4 of 5] Spec
+[5 of 5] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-sl-networking-test/cardano-sl-networking-test ...
+Preprocessing benchmark 'qdisc-simulation' for cardano-sl-networking-1.0.3...
+[1 of 2] Network.QDisc.Fair
+[2 of 2] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/qdisc-simulation/qdisc-simulation ...
+cardano-sl-networking-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-networking-1.0.3-Il3UZiTepri63nV7uRtKBn
+Installing executable(s) in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin
+Registering cardano-sl-networking-1.0.3...
+cardano-sl-networking-1.0.3: Test running disabled by --no-run-tests flag.
+cardano-sl-networking-1.0.3: Benchmark running disabled by --no-run-benchmarks flag.
+Completed 2 action(s).
+Building cardano-sl-binary
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-binary
+
+cardano-sl-binary-1.0.3: unregistering (local file changes: Pos/Binary/Class.hs Pos/Binary/Class/Core.hs Pos/Binary/Class/Numbers.hs Pos/Binary/Class/Primiti...)
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-binary
+
+cardano-sl-binary-1.0.3: configure (lib)
+Configuring cardano-sl-binary-1.0.3...
+cardano-sl-binary-1.0.3: build (lib)
+Preprocessing library cardano-sl-binary-1.0.3...
+[1 of 5] Pos.Binary.Class.Core
+[2 of 5] Pos.Binary.Class.Numbers
+[3 of 5] Pos.Binary.Class.Primitive
+[4 of 5] Pos.Binary.Class.TH
+[5 of 5] Pos.Binary.Class
+cardano-sl-binary-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-binary-1.0.3-DtOufIGW512AMKEJbwzZ8k
+Registering cardano-sl-binary-1.0.3...
+Building cardano-sl-util
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-util
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-util
+
+cardano-sl-util-1.0.3: configure (lib)
+Configuring cardano-sl-util-1.0.3...
+cardano-sl-util-1.0.3: build (lib)
+Preprocessing library cardano-sl-util-1.0.3...
+[ 1 of 20] Pos.Util.Util
+[ 2 of 20] Pos.Util.Timer
+[ 3 of 20] Pos.Util.Some
+[ 4 of 20] Pos.Util.Queue
+[ 5 of 20] Pos.Util.Orphans
+[ 6 of 20] Pos.Util.Modifier
+[ 7 of 20] Pos.Util.LoggerName
+[ 8 of 20] Pos.Util.Lens
+[ 9 of 20] Pos.Util.LRU
+[10 of 20] Pos.Util.Justify
+[11 of 20] Pos.Util.Future
+[12 of 20] Pos.Util.Filesystem
+[13 of 20] Pos.Util.Concurrent.RWLock
+[14 of 20] Pos.Util.Concurrent.RWVar
+[15 of 20] Pos.Util.Concurrent.PriorityLock
+[16 of 20] Pos.Util.Concurrent
+[17 of 20] Pos.Util.Concurrent.LockedTVar
+[18 of 20] Pos.Util.CompileInfo
+[19 of 20] Pos.Util.Arbitrary
+[20 of 20] Pos.Util
+cardano-sl-util-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-util-1.0.3-71b03e3pYER1TgOXLFBHNN
+Registering cardano-sl-util-1.0.3...
+Building cardano-sl-crypto
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-crypto
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-crypto
+
+cardano-sl-crypto-1.0.3: configure (lib)
+Configuring cardano-sl-crypto-1.0.3...
+cardano-sl-crypto-1.0.3: build (lib)
+Preprocessing library cardano-sl-crypto-1.0.3...
+[ 1 of 23] Pos.Crypto.Signing.Types.Tag
+[ 2 of 23] Pos.Crypto.Signing.Types.Redeem
+[ 3 of 23] Pos.Crypto.Scrypt
+[ 4 of 23] Pos.Crypto.Random
+[ 5 of 23] Pos.Crypto.Hashing
+[ 6 of 23] Pos.Crypto.SecretSharing
+[ 7 of 23] Pos.Crypto.Signing.Types.Signing
+[ 8 of 23] Pos.Crypto.Signing.Types.Safe
+[ 9 of 23] Pos.Crypto.Signing.Types
+[10 of 23] Pos.Crypto.HD
+[11 of 23] Pos.Crypto.Encryption
+[12 of 23] Pos.Crypto.Configuration
+[13 of 23] Pos.Crypto.Signing.Tag
+[14 of 23] Pos.Crypto.Signing.Redeem
+[15 of 23] Pos.Crypto.AsBinary
+[16 of 23] Pos.Binary.Crypto
+[17 of 23] Pos.Crypto.Signing.Signing
+[18 of 23] Pos.Crypto.Signing.Safe
+[19 of 23] Pos.Crypto.Signing
+[20 of 23] Pos.Crypto
+[21 of 23] Pos.Arbitrary.Crypto.Unsafe
+[22 of 23] Pos.Arbitrary.Crypto
+[23 of 23] Pos.Aeson.Crypto
+cardano-sl-crypto-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-crypto-1.0.3-2nok2gKqxtYJ10LCPMC1oA
+Registering cardano-sl-crypto-1.0.3...
+Building cardano-sl-core
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-core
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-core
+
+cardano-sl-core-1.0.3: configure (lib)
+Configuring cardano-sl-core-1.0.3...
+cardano-sl-core-1.0.3: build (lib)
+Preprocessing library cardano-sl-core-1.0.3...
+[ 1 of 80] Pos.Util.Limits
+[ 2 of 80] Pos.Util.Chrono
+[ 3 of 80] Pos.Util.AssertMode
+[ 4 of 80] Pos.System.Metrics.Constants
+[ 5 of 80] Pos.Merkle
+[ 6 of 80] Pos.Exception
+[ 7 of 80] Pos.Data.Attributes
+[ 8 of 80] Pos.Core.Slotting.Timestamp
+[ 9 of 80] Pos.Core.Slotting.Types
+[10 of 80] Pos.Core.Script
+[11 of 80] Pos.Core.Delegation.Types
+[12 of 80] Pos.Core.Constants
+[13 of 80] Pos.Core.Configuration.GenesisHash
+[14 of 80] Pos.Core.Common.Types
+[15 of 80] Pos.Core.Common.Fee
+[16 of 80] Pos.Core.Common.Coin
+[17 of 80] Pos.Core.Common.Address
+[18 of 80] Pos.Core.Common
+[19 of 80] Pos.Core.Context.PrimaryKey
+[20 of 80] Pos.Core.Context
+[21 of 80] Pos.Core.Ssc.Types
+[22 of 80] Pos.Core.Ssc.Vss
+[23 of 80] Pos.Core.Update.Types
+[24 of 80] Pos.Core.Configuration.BlockVersionData
+[25 of 80] Pos.Core.Genesis.Types
+[26 of 80] Pos.Core.Configuration.Core
+[27 of 80] Pos.Core.Configuration.GenesisData
+[28 of 80] Pos.Core.Configuration.Protocol
+[29 of 80] Pos.Core.Genesis.Helpers
+[30 of 80] Pos.Core.Update.Version
+[31 of 80] Pos.Core.Class
+[32 of 80] Pos.Core.Slotting.Util
+[33 of 80] Pos.Core.Slotting
+[34 of 80] Pos.Core.Block.Blockchain
+[35 of 80] Pos.Core.Block.Genesis.Types
+[36 of 80] Pos.Binary.Merkle
+[37 of 80] Pos.Binary.Core.Slotting
+[38 of 80] Pos.Binary.Core.Script
+[39 of 80] Pos.Binary.Core.Fee
+[40 of 80] Pos.Binary.Core.Common
+[41 of 80] Pos.Binary.Core.Blockchain
+[42 of 80] Pos.Binary.Core.Address
+[43 of 80] Pos.Core.Genesis.Canonical
+[44 of 80] Pos.Core.Genesis.Generate
+[45 of 80] Pos.Core.Configuration.GeneratedSecrets
+[46 of 80] Pos.Core.Configuration
+[47 of 80] Pos.Binary.Core.Ssc
+[48 of 80] Pos.Core.Delegation.Util
+[49 of 80] Pos.Core.Delegation
+[50 of 80] Pos.Binary.Core.Delegation
+[51 of 80] Pos.Core.Block.Main.Types
+[52 of 80] Pos.Core.Block.Union.Types
+[53 of 80] Pos.Core.Block.Genesis.Chain
+[54 of 80] Pos.Core.Block.Genesis.Lens
+[55 of 80] Pos.Core.Ssc.Util
+[56 of 80] Pos.Core.Ssc
+[57 of 80] Pos.Core.Update.Util
+[58 of 80] Pos.Core.Update
+[59 of 80] Pos.Binary.Core.Update
+[60 of 80] Pos.Core.Genesis
+[61 of 80] Pos.Core.Txp
+[62 of 80] Pos.Binary.Core.Txp
+[63 of 80] Pos.Core.Block.Main.Chain
+[64 of 80] Pos.Binary.Core.Block
+[65 of 80] Pos.Core.Block.Genesis.Instances
+[66 of 80] Pos.Core.Block.Genesis
+[67 of 80] Pos.Core.Block.Main.Lens
+[68 of 80] Pos.Core.Block.Main.Instances
+[69 of 80] Pos.Core.Block.Main
+[70 of 80] Pos.Core.Block.Union.Instances
+[71 of 80] Pos.Core.Block.Union
+[72 of 80] Pos.Core.Block
+[73 of 80] Pos.Core
+[74 of 80] Pos.Binary.Core
+[75 of 80] Pos.Arbitrary.Core
+[76 of 80] Pos.Arbitrary.Core.Unsafe
+[77 of 80] Pos.Aeson.Fee
+[78 of 80] Pos.Aeson.Core
+[79 of 80] Pos.Aeson.Genesis
+[80 of 80] Pos.Aeson.Core.Configuration
+cardano-sl-core-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-core-1.0.3-HwNaVEm5ujE3waMLTXSfYh
+Registering cardano-sl-core-1.0.3...
+Building cardano-sl-db
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-db
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-db
+
+cardano-sl-db-1.0.3: configure (lib)
+Configuring cardano-sl-db-1.0.3...
+cardano-sl-db-1.0.3: build (lib)
+Preprocessing library cardano-sl-db-1.0.3...
+[ 1 of 14] Pos.DB.Error
+[ 2 of 14] Pos.DB.Class
+[ 3 of 14] Pos.DB.Functions
+[ 4 of 14] Pos.DB.Misc.Common
+[ 5 of 14] Pos.DB.Pure
+[ 6 of 14] Pos.DB.Rocks.Types
+[ 7 of 14] Pos.DB.BatchOp
+[ 8 of 14] Pos.DB.GState.Common
+[ 9 of 14] Pos.DB.BlockIndex
+[10 of 14] Pos.DB.GState.Stakes
+[11 of 14] Pos.DB.Rocks.Functions
+[12 of 14] Pos.DB.Rocks
+[13 of 14] Pos.DB.Sum
+[14 of 14] Pos.DB
+cardano-sl-db-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-db-1.0.3-Fi6jDz84i6OLy4Zvn3mTf6
+Registering cardano-sl-db-1.0.3...
+Building cardano-sl-lrc
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-lrc
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-lrc
+
+cardano-sl-lrc-1.0.3: configure (lib)
+Configuring cardano-sl-lrc-1.0.3...
+cardano-sl-lrc-1.0.3: build (lib)
+Preprocessing library cardano-sl-lrc-1.0.3...
+[ 1 of 13] Pos.Lrc.Types
+[ 2 of 13] Pos.Lrc.Fts
+[ 3 of 13] Pos.Lrc.Error
+[ 4 of 13] Pos.Lrc.DB.Common
+[ 5 of 13] Pos.Lrc.DB.Issuers
+[ 6 of 13] Pos.Lrc.DB.Seed
+[ 7 of 13] Pos.Lrc.Core
+[ 8 of 13] Pos.Lrc.Context
+[ 9 of 13] Pos.Lrc.Mode
+[10 of 13] Pos.Lrc.Class
+[11 of 13] Pos.Lrc.DB.RichmenBase
+[12 of 13] Pos.Lrc.Consumer
+[13 of 13] Pos.Arbitrary.Lrc
+cardano-sl-lrc-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-lrc-1.0.3-2Z1mp3DjX6cAgMv2dwLYTW
+Registering cardano-sl-lrc-1.0.3...
+Building cardano-sl-infra
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-infra
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-infra
+
+cardano-sl-infra-1.0.3: configure (lib)
+Configuring cardano-sl-infra-1.0.3...
+cardano-sl-infra-1.0.3: build (lib)
+Preprocessing library cardano-sl-infra-1.0.3...
+[ 1 of 70] Pos.Util.TimeWarp
+[ 2 of 70] Pos.Util.SigHandler
+[ 3 of 70] Pos.Util.LogSafe
+[ 4 of 70] Pos.Util.TimeLimit
+[ 5 of 70] Pos.StateLock
+[ 6 of 70] Pos.Slotting.Types
+[ 7 of 70] Pos.Slotting.MemState
+[ 8 of 70] Pos.Slotting.Impl.Util
+[ 9 of 70] Pos.Slotting.Impl.Simple
+[10 of 70] Pos.Slotting.Error
+[11 of 70] Pos.Slotting.Class
+[12 of 70] Pos.Shutdown.Types
+[13 of 70] Pos.Shutdown.Class
+[14 of 70] Pos.Shutdown.Logic
+[15 of 70] Pos.Shutdown
+[16 of 70] Pos.Reporting.MemState
+[17 of 70] Pos.Reporting.Exceptions
+[18 of 70] Pos.Recovery.Info
+[19 of 70] Pos.Network.Policy
+[20 of 70] Pos.Network.DnsDomains
+[21 of 70] Pos.Network.Types
+[22 of 70] Pos.Network.Yaml
+[23 of 70] Pos.Infra.Configuration
+[24 of 70] Pos.NtpCheck
+[25 of 70] Pos.Slotting.Configuration
+[26 of 70] Pos.Slotting.Impl.Ntp
+[27 of 70] Pos.Slotting.Impl.Sum
+[28 of 70] Pos.Slotting.Impl
+[29 of 70] Pos.DHT.Model.Types
+[30 of 70] Pos.DHT.Real.CLI
+[31 of 70] Pos.DHT.Real.Param
+[32 of 70] Pos.Network.CLI
+[33 of 70] Pos.DHT.Real.Types
+[34 of 70] Pos.DHT.Model
+[35 of 70] Pos.DHT.Configuration
+[36 of 70] Pos.Communication.Types.Relay
+[37 of 70] Pos.Communication.Configuration
+[38 of 70] Pos.Communication.BiP
+[39 of 70] Pos.Communication.Types.Protocol
+[40 of 70] Pos.Communication.Relay.Types
+[41 of 70] Pos.Communication.Relay.Util
+[42 of 70] Pos.KnownPeers
+[43 of 70] Pos.Binary.Infra.Slotting
+[44 of 70] Pos.Binary.Infra.Relay
+[45 of 70] Pos.Binary.Infra.DHTModel
+[46 of 70] Pos.DHT.Real.Real
+[47 of 70] Pos.DHT.Real
+[48 of 70] Pos.DHT
+[49 of 70] Pos.Binary.Infra
+[50 of 70] Pos.Arbitrary.Slotting
+[51 of 70] Pos.Arbitrary.Infra
+[52 of 70] Paths_cardano_sl_infra
+[53 of 70] Pos.Reporting.Methods
+[54 of 70] Pos.Reporting.Metrics
+[55 of 70] Pos.Reporting
+[56 of 70] Pos.Slotting.Util
+[57 of 70] Pos.Slotting
+[58 of 70] Pos.Communication.Protocol
+[59 of 70] Pos.Communication.Limits.Types
+[60 of 70] Pos.Communication.Limits.Instances
+[61 of 70] Pos.Communication.Relay.Class
+[62 of 70] Pos.Communication.Listener
+[63 of 70] Pos.Communication.Relay.Logic
+[64 of 70] Pos.Communication.Relay
+[65 of 70] Pos.Communication.Specs
+[66 of 70] Pos.Communication.Util
+[67 of 70] Pos.DHT.Workers
+[68 of 70] Pos.Subscription.Common
+[69 of 70] Pos.Subscription.Dht
+[70 of 70] Pos.Subscription.Dns
+cardano-sl-infra-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-infra-1.0.3-4Figr7ugZgJ7YeMYXg2YsX
+Registering cardano-sl-infra-1.0.3...
+Building cardano-sl-ssc
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-ssc
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-ssc
+
+cardano-sl-ssc-1.0.3: configure (lib)
+Configuring cardano-sl-ssc-1.0.3...
+cardano-sl-ssc-1.0.3: build (lib)
+Preprocessing library cardano-sl-ssc-1.0.3...
+[ 1 of 42] Pos.Ssc.VssCertData
+[ 2 of 42] Pos.Ssc.Toss.Class
+[ 3 of 42] Pos.Ssc.RichmenComponent
+[ 4 of 42] Pos.Ssc.Lrc
+[ 5 of 42] Pos.Ssc.Error.Verify
+[ 6 of 42] Pos.Ssc.Error.Seed
+[ 7 of 42] Pos.Ssc.Error
+[ 8 of 42] Pos.Ssc.Configuration
+[ 9 of 42] Pos.Ssc.Behavior
+[10 of 42] Pos.Ssc.Base
+[11 of 42] Pos.Ssc.Seed
+[12 of 42] Pos.Ssc.Toss.Base
+[13 of 42] Pos.Ssc.Toss.Types
+[14 of 42] Pos.Ssc.Message
+[15 of 42] Pos.Ssc.Toss.Trans
+[16 of 42] Pos.Ssc.Types
+[17 of 42] Pos.Ssc.Functions
+[18 of 42] Pos.Ssc.Toss.Logic
+[19 of 42] Pos.Ssc.Mem
+[20 of 42] Pos.Ssc.Shares
+[21 of 42] Pos.Ssc.State.Local
+[22 of 42] Pos.Ssc.Toss.Pure
+[23 of 42] Pos.Ssc.Toss
+[24 of 42] Pos.Security.Params
+[25 of 42] Pos.Security.Util
+[26 of 42] Pos.Ssc.Mode
+[27 of 42] Pos.Binary.Ssc.Types
+[28 of 42] Pos.Ssc.SecretStorage
+[29 of 42] Pos.Binary.Ssc.Toss
+[30 of 42] Pos.Binary.Ssc.Relay
+[31 of 42] Pos.Binary.Ssc
+[32 of 42] Pos.Ssc.DB
+[33 of 42] Pos.Ssc.Logic.Global
+[34 of 42] Pos.Ssc.Logic.Local
+[35 of 42] Pos.Ssc.Logic.VAR
+[36 of 42] Pos.Ssc.Logic
+[37 of 42] Pos.Ssc.Listeners
+[38 of 42] Pos.Ssc.State.Global
+[39 of 42] Pos.Ssc.State
+[40 of 42] Pos.Arbitrary.Ssc
+[41 of 42] Pos.Ssc.Worker
+[42 of 42] Pos.Ssc
+cardano-sl-ssc-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-ssc-1.0.3-AkZHwPybhZeGmeEeVincc9
+Registering cardano-sl-ssc-1.0.3...
+Building cardano-sl-txp
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-txp
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-txp
+
+cardano-sl-txp-1.0.3: configure (lib)
+Configuring cardano-sl-txp-1.0.3...
+cardano-sl-txp-1.0.3: build (lib)
+Preprocessing library cardano-sl-txp-1.0.3...
+[ 1 of 43] Pos.Txp.Topsort
+[ 2 of 43] Pos.Txp.Toil.Types
+[ 3 of 43] Pos.Txp.Toil.Stakes.Pure
+[ 4 of 43] Pos.Txp.Toil.Class
+[ 5 of 43] Pos.Txp.Toil.Trans
+[ 6 of 43] Pos.Txp.Network.Types
+[ 7 of 43] Pos.Txp.MemState.Types
+[ 8 of 43] Pos.Txp.MemState.Metrics
+[ 9 of 43] Pos.Txp.Error
+[10 of 43] Pos.Txp.Base
+[11 of 43] Pos.Txp.DB.Utxo
+[12 of 43] Pos.Txp.Toil.DBToil
+[13 of 43] Pos.Txp.Toil.Stakes.Functions
+[14 of 43] Pos.Txp.Toil.Stakes
+[15 of 43] Pos.Txp.Toil.Utxo.Util
+[16 of 43] Pos.Script
+[17 of 43] Pos.Script.Examples
+[18 of 43] Pos.Txp.Toil.Failure
+[19 of 43] Pos.Txp.MemState.Class
+[20 of 43] Pos.Txp.MemState.Holder
+[21 of 43] Pos.Txp.MemState
+[22 of 43] Pos.Txp.Settings.Global
+[23 of 43] Pos.Txp.Settings
+[24 of 43] Pos.Txp.Toil.Utxo.Functions
+[25 of 43] Pos.Txp.Toil.Utxo.Pure
+[26 of 43] Pos.Txp.Toil.Utxo
+[27 of 43] Pos.Txp.DB.Stakes
+[28 of 43] Pos.Txp.DB
+[29 of 43] Pos.Txp.Toil.Logic
+[30 of 43] Pos.Txp.Toil
+[31 of 43] Pos.Txp.GenesisUtxo
+[32 of 43] Pos.Txp.Logic.Global
+[33 of 43] Pos.Txp.Logic.Local
+[34 of 43] Pos.Txp.Logic
+[35 of 43] Pos.Binary.Txp.Network
+[36 of 43] Pos.Binary.Txp
+[37 of 43] Pos.Txp.Network.Listeners
+[38 of 43] Pos.Arbitrary.Txp.Unsafe
+[39 of 43] Pos.Arbitrary.Txp
+[40 of 43] Pos.Arbitrary.Txp.Network
+[41 of 43] Pos.Txp.Network
+[42 of 43] Pos.Txp
+[43 of 43] Pos.Aeson.Txp
+cardano-sl-txp-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-txp-1.0.3-9lDoSu8QaTvBW9bXXtADCn
+Registering cardano-sl-txp-1.0.3...
+Building cardano-sl-update
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-update
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-update
+
+cardano-sl-update-1.0.3: configure (lib)
+Configuring cardano-sl-update-1.0.3...
+cardano-sl-update-1.0.3: build (lib)
+Preprocessing library cardano-sl-update-1.0.3...
+[ 1 of 47] Pos.Update.RichmenComponent
+[ 2 of 47] Pos.Update.Poll.Types
+[ 3 of 47] Pos.Update.Poll.Modifier
+[ 4 of 47] Pos.Update.Poll.PollState
+[ 5 of 47] Pos.Update.Poll.Failure
+[ 6 of 47] Pos.Update.Poll.Class
+[ 7 of 47] Pos.Update.Poll.Logic.Rollback
+[ 8 of 47] Pos.Update.Params
+[ 9 of 47] Pos.Update.MemState.Types
+[10 of 47] Pos.Update.Lrc
+[11 of 47] Pos.Update.DB.Misc
+[12 of 47] Pos.Update.Context
+[13 of 47] Pos.Update.Constants
+[14 of 47] Pos.Update.BlockVersion
+[15 of 47] Pos.Update.Poll.Pure
+[16 of 47] Pos.Binary.Update.Relay
+[17 of 47] Pos.Binary.Update.Poll
+[18 of 47] Pos.Binary.Update
+[19 of 47] Pos.Update.Poll.Logic.Base
+[20 of 47] Pos.Update.Poll.Logic.Softfork
+[21 of 47] Pos.Update.Poll.Logic.Version
+[22 of 47] Pos.Update.Poll.Logic.Apply
+[23 of 47] Pos.Update.Poll.Logic.Normalize
+[24 of 47] Pos.Update.Poll.Logic
+[25 of 47] Pos.Update.Poll.RollTrans
+[26 of 47] Pos.Update.Poll.Trans
+[27 of 47] Pos.Arbitrary.Update.Core
+[28 of 47] Pos.Arbitrary.Update.Network
+[29 of 47] Pos.Arbitrary.Update.Poll
+[30 of 47] Pos.Aeson.Update
+[31 of 47] Pos.Update.Configuration
+[32 of 47] Pos.Update.DB
+[33 of 47] Pos.Update.Mode
+[34 of 47] Pos.Update.Download
+[35 of 47] Pos.Update.Poll.DBPoll
+[36 of 47] Pos.Update.Poll
+[37 of 47] Pos.Update.Logic.Global
+[38 of 47] Pos.Update.MemState.Functions
+[39 of 47] Pos.Update.MemState
+[40 of 47] Pos.Arbitrary.Update.MemState
+[41 of 47] Pos.Arbitrary.Update
+[42 of 47] Pos.Update.Logic.Local
+[43 of 47] Pos.Update.Logic
+[44 of 47] Pos.Update.Network.Listeners
+[45 of 47] Pos.Update.Network
+[46 of 47] Pos.Update.Worker
+[47 of 47] Pos.Update
+cardano-sl-update-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-update-1.0.3-6pQntdu9POn66L0HID5s1u
+Registering cardano-sl-update-1.0.3...
+Building cardano-sl-delegation
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-delegation
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-delegation
+
+cardano-sl-delegation-1.0.3: configure (lib)
+Configuring cardano-sl-delegation-1.0.3...
+cardano-sl-delegation-1.0.3: build (lib)
+Preprocessing library cardano-sl-delegation-1.0.3...
+[ 1 of 21] Pos.Delegation.Types
+[ 2 of 21] Pos.Delegation.RichmenComponent
+[ 3 of 21] Pos.Delegation.Lrc
+[ 4 of 21] Pos.Delegation.Helpers
+[ 5 of 21] Pos.Delegation.Configuration
+[ 6 of 21] Pos.Delegation.Class
+[ 7 of 21] Pos.Delegation.Cede.Types
+[ 8 of 21] Pos.Delegation.DB
+[ 9 of 21] Pos.Delegation.Cede.Class
+[10 of 21] Pos.Delegation.Cede.Holders
+[11 of 21] Pos.Delegation.Cede.Logic
+[12 of 21] Pos.Delegation.Cede
+[13 of 21] Pos.Delegation.Logic.Common
+[14 of 21] Pos.Delegation.Logic.Mempool
+[15 of 21] Pos.Delegation.Logic.VAR
+[16 of 21] Pos.Delegation.Logic
+[17 of 21] Pos.Delegation.Worker
+[18 of 21] Pos.Binary.Delegation
+[19 of 21] Pos.Delegation.Listeners
+[20 of 21] Pos.Delegation
+[21 of 21] Pos.Arbitrary.Delegation
+cardano-sl-delegation-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-delegation-1.0.3-Ghny2VpDwQy33ymoEtH8Yp
+Registering cardano-sl-delegation-1.0.3...
+Building cardano-sl-block
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-block
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-block
+
+cardano-sl-block-1.0.3: configure (lib)
+Configuring cardano-sl-block-1.0.3...
+cardano-sl-block-1.0.3: build (lib)
+Preprocessing library cardano-sl-block-1.0.3...
+[ 1 of 43] Pos.Lrc.Logic
+[ 2 of 43] Pos.Lrc.FtsPure
+[ 3 of 43] Pos.Lrc.Genesis
+[ 4 of 43] Pos.Lrc.DB.Richmen
+[ 5 of 43] Pos.Lrc.DB.Leaders
+[ 6 of 43] Pos.Lrc.DB.Lrc
+[ 7 of 43] Pos.Lrc.DB
+[ 8 of 43] Pos.Lrc.Consumers
+[ 9 of 43] Pos.GState.SanityCheck
+[10 of 43] Pos.Block.Slog.Types
+[11 of 43] Pos.Block.Types
+[12 of 43] Pos.GState.BlockExtra
+[13 of 43] Pos.Block.Slog.Context
+[14 of 43] Pos.Block.RetrievalQueue
+[15 of 43] Pos.Block.Network.Types
+[16 of 43] Pos.Block.Logic.Util
+[17 of 43] Pos.Block.Error
+[18 of 43] Pos.Block.Configuration
+[19 of 43] Pos.Block.BListener
+[20 of 43] Pos.Block.BHelpers
+[21 of 43] Pos.Block.Base
+[22 of 43] Pos.Block.Pure
+[23 of 43] Pos.Util.JsonLog
+[24 of 43] Pos.Binary.Block.Types
+[25 of 43] Pos.DB.Block
+[26 of 43] Pos.Block.Slog.Logic
+[27 of 43] Pos.Block.Slog
+[28 of 43] Pos.Block.Logic.Internal
+[29 of 43] Pos.DB.Block.Load
+[30 of 43] Pos.Block.Logic.Header
+[31 of 43] Pos.Lrc.Worker
+[32 of 43] Pos.Block.BlockWorkMode
+[33 of 43] Pos.Block.Logic.VAR
+[34 of 43] Pos.Lrc
+[35 of 43] Pos.Block.Logic.Creation
+[36 of 43] Pos.Block.Logic
+[37 of 43] Pos.Block.Network.Announce
+[38 of 43] Pos.Block.Network.Logic
+[39 of 43] Pos.Block.Network.Listeners
+[40 of 43] Pos.Block.Network.Retrieval
+[41 of 43] Pos.Block.Network
+[42 of 43] Pos.Block.Worker
+[43 of 43] Pos.Arbitrary.Block
+cardano-sl-block-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-block-1.0.3-AkD87ALJknVATtRipiEQXf
+Registering cardano-sl-block-1.0.3...
+Building cardano-sl
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl
+
+cardano-sl-1.0.3: configure (lib + test + bench)
+Configuring cardano-sl-1.0.3...
+cardano-sl-1.0.3: build (lib + test + bench)
+Preprocessing library cardano-sl-1.0.3...
+[ 1 of 73] Test.Pos.Cbor.RefImpl
+[ 2 of 73] Test.Pos.Cbor.Canonicity
+[ 3 of 73] Pos.Web.Types
+[ 4 of 73] Pos.Web.Api
+[ 5 of 73] Pos.Util.UserSecret
+[ 6 of 73] Pos.Util.Servant
+[ 7 of 73] Pos.Util.Monitor
+[ 8 of 73] Pos.Util.Config
+<[ 9 of 73] Pos.Statistics.Statsd
+[10 of 73] Pos.Statistics.Ekg
+[11 of 73] Pos.Statistics
+[12 of 73] Pos.SafeCopy
+[13 of 73] Pos.Recovery.Instance
+[14 of 73] Pos.Recovery
+[15 of 73] Pos.Launcher.Mode
+[16 of 73] Pos.HealthCheck.Route53
+[17 of 73] Pos.GState.GState
+[18 of 73] Pos.GState.Context
+[19 of 73] Pos.GState
+[20 of 73] Pos.Diffusion.Types
+[21 of 73] Pos.Diffusion.Subscription.Dht
+[22 of 73] Pos.Diffusion.Subscription.Common
+[23 of 73] Pos.Diffusion.Subscription.Dns
+[24 of 73] Pos.Crypto.HDDiscovery
+[25 of 73] Pos.Constants
+[26 of 73] Pos.Configuration
+[27 of 73] Pos.Diffusion.Full.Types
+[28 of 73] Pos.Launcher.Configuration
+[29 of 73] Test.Pos.Configuration
+[30 of 73] Test.Pos.Util
+[31 of 73] Pos.Communication.Types
+[32 of 73] Pos.Communication.Message
+[33 of 73] Pos.Communication.Limits
+[34 of 73] Pos.Client.CLI.Util
+[35 of 73] Pos.Binary.Communication
+[36 of 73] Pos.Binary
+[37 of 73] Pos.Behavior
+[38 of 73] Pos.Launcher.Param
+[39 of 73] Pos.Context.Context
+[40 of 73] Pos.Context.Functions
+[41 of 73] Pos.Context
+[42 of 73] Pos.Web.Mode
+[43 of 73] Pos.WorkMode.Class
+[44 of 73] Pos.Communication.Server
+[45 of 73] Pos.Communication
+[46 of 73] Pos.Client.CLI.Options
+[47 of 73] Pos.Logic.Types
+[48 of 73] Pos.Diffusion.Full.Block
+[49 of 73] Pos.Diffusion.Full.Delegation
+[50 of 73] Pos.Diffusion.Full.Ssc
+[51 of 73] Pos.Diffusion.Full.Txp
+[52 of 73] Pos.Diffusion.Full.Update
+[53 of 73] Pos.Util.OutboundQueue
+[54 of 73] Pos.Diffusion.Full
+[55 of 73] Test.Pos.Helpers
+[56 of 73] Pos.DB.DB
+[57 of 73] Pos.WorkMode
+[58 of 73] Pos.Web.Server
+[59 of 73] Pos.Web
+[60 of 73] Pos.Launcher.Resource
+[61 of 73] Pos.Worker
+[62 of 73] Pos.Launcher.Scenario
+[63 of 73] Pos.Launcher.Runner
+[64 of 73] Pos.Launcher.Launcher
+[65 of 73] Pos.Launcher
+[66 of 73] Pos.AllSecrets
+[67 of 73] Pos.Aeson.Types
+[68 of 73] Pos.Aeson
+[69 of 73] Paths_cardano_sl
+[70 of 73] Pos.Client.CLI.NodeOptions
+[71 of 73] Pos.Client.CLI.Secrets
+[72 of 73] Pos.Client.CLI.Params
+[73 of 73] Pos.Client.CLI
+Preprocessing test suite 'cardano-test' for cardano-sl-1.0.3...
+[ 1 of 41] Test.Pos.UtilSpec
+[ 2 of 41] Test.Pos.Util.ModifierSpec
+[ 3 of 41] Test.Pos.Util.LimitsSpec
+[ 4 of 41] Test.Pos.Update.PollSpec
+[ 5 of 41] Test.Pos.Update.MemStateSpec
+[ 6 of 41] Test.Pos.Update.Identity.SafeCopySpec
+[ 7 of 41] Test.Pos.Types.Identity.ShowReadSpec
+[ 8 of 41] Test.Pos.Types.Identity.SafeCopySpec
+[ 9 of 41] Test.Pos.Types.BlockSpec
+[10 of 41] Test.Pos.Txp.Toil.UtxoSpec
+[11 of 41] Test.Pos.Txp.CoreSpec
+[12 of 41] Test.Pos.Ssc.VssCertDataSpec
+[13 of 41] Test.Pos.Ssc.Toss.PureSpec
+[14 of 41] Test.Pos.Ssc.Toss.BaseSpec
+[15 of 41] Test.Pos.Ssc.SeedSpec
+[16 of 41] Test.Pos.Ssc.Identity.SafeCopySpec
+[17 of 41] Test.Pos.Ssc.Identity.BinarySpec
+[18 of 41] Test.Pos.Ssc.ComputeSharesSpec
+[19 of 41] Test.Pos.Slotting.TypesSpec
+[20 of 41] Test.Pos.Slotting.BinarySpec
+[21 of 41] Test.Pos.MerkleSpec
+[22 of 41] Test.Pos.Lrc.FollowTheSatoshiSpec
+[23 of 41] Test.Pos.Genesis.CanonicalSpec
+[24 of 41] Test.Pos.Delegation.Identity.BinarySpec
+[25 of 41] Test.Pos.DHT.Identity.BinarySpec
+[26 of 41] Test.Pos.Core.SlottingSpec
+[27 of 41] Test.Pos.Core.SeedSpec
+[28 of 41] Test.Pos.Core.CoinSpec
+[29 of 41] Test.Pos.Core.AddressSpec
+[30 of 41] Test.Pos.ConstantsSpec
+[31 of 41] Test.Pos.Cbor.CborSpec
+[32 of 41] Test.Pos.Communication.Identity.BinarySpec
+[33 of 41] Test.Pos.CryptoSpec
+[34 of 41] Test.Pos.Txp.Identity.BinarySpec
+[35 of 41] Test.Pos.Types.Identity.BinarySpec
+[36 of 41] Test.Pos.Update.Identity.BinarySpec
+[37 of 41] Test.Pos.Block.Identity.SafeCopySpec
+[38 of 41] Test.Pos.Block.Identity.BinarySpec
+[39 of 41] Test.Pos.BinarySpec
+[40 of 41] Spec
+[41 of 41] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-test/cardano-test ...
+Preprocessing benchmark 'cardano-bench-criterion' for cardano-sl-1.0.3...
+[1 of 4] Bench.Configuration
+[2 of 4] Bench.Pos.Criterion.FollowTheSatoshiBench
+[3 of 4] Bench.Pos.Criterion.TxSigningBench
+[4 of 4] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-bench-criterion/cardano-bench-criterion ...
+cardano-sl-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-1.0.3-3zx4rrgTGM75CjEvr2zhUd
+Registering cardano-sl-1.0.3...
+cardano-sl-1.0.3: Test running disabled by --no-run-tests flag.
+cardano-sl-1.0.3: Benchmark running disabled by --no-run-benchmarks flag.
+Completed 2 action(s).
+Building cardano-sl-node
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-node
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-node
+
+cardano-sl-node-1.0.3: configure (exe)
+Configuring cardano-sl-node-1.0.3...
+cardano-sl-node-1.0.3: build (exe)
+Preprocessing executable 'cardano-node-simple' for cardano-sl-node-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-node-simple/cardano-node-simple ...
+cardano-sl-node-1.0.3: copy/register
+Installing executable(s) in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin
+Building cardano-sl-client
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-client
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-client
+
+cardano-sl-client-1.0.3: configure (lib + test)
+Configuring cardano-sl-client-1.0.3...
+cardano-sl-client-1.0.3: build (lib + test)
+Preprocessing library cardano-sl-client-1.0.3...
+[1 of 9] Pos.Client.Update.Network
+[2 of 9] Pos.Client.Update
+[3 of 9] Pos.Client.Txp.History
+[4 of 9] Pos.Client.Txp.Balances
+[5 of 9] Pos.Client.Txp.Addresses
+[6 of 9] Pos.Client.Txp.Util
+[7 of 9] Pos.Client.Txp.Network
+[8 of 9] Pos.Client.Txp
+[9 of 9] Pos.Client.KeyStorage
+Preprocessing test suite 'cardano-client-test' for cardano-sl-client-1.0.3...
+[1 of 4] Test.Pos.Client.Txp.Mode
+[2 of 4] Test.Pos.Client.Txp.UtilSpec
+[3 of 4] Spec
+[4 of 4] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-client-test/cardano-client-test ...
+cardano-sl-client-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-client-1.0.3-3rRzcNsag4c7dAlqmDhdKI
+Registering cardano-sl-client-1.0.3...
+cardano-sl-client-1.0.3: Test running disabled by --no-run-tests flag.
+Completed 2 action(s).
+Building cardano-sl-generator
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-generator
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-generator
+
+cardano-sl-generator-1.0.3: configure (lib + test)
+Configuring cardano-sl-generator-1.0.3...
+cardano-sl-generator-1.0.3: build (lib + test)
+Preprocessing library cardano-sl-generator-1.0.3...
+[ 1 of 13] Test.Pos.Block.Logic.Emulation
+[ 2 of 13] Pos.Generator.Block.Param
+[ 3 of 13] Pos.Generator.Block.Mode
+[ 4 of 13] Pos.Generator.Block.Error
+[ 5 of 13] Pos.Generator.Block.Payload
+[ 6 of 13] Pos.Generator.Block.Logic
+[ 7 of 13] Pos.Generator.Block
+[ 8 of 13] Pos.Generator.BlockEvent
+[ 9 of 13] Pos.Generator.BlockEvent.DSL
+[10 of 13] Test.Pos.Block.Logic.Mode
+[11 of 13] Test.Pos.Block.Logic.Util
+[12 of 13] Test.Pos.Block.Logic.Event
+[13 of 13] Pos.Generator
+Preprocessing test suite 'cardano-generator-test' for
+cardano-sl-generator-1.0.3...
+[1 of 6] Test.Pos.Lrc.WorkerSpec
+[2 of 6] Test.Pos.Helpers
+[3 of 6] Test.Pos.Block.Logic.VarSpec
+[4 of 6] Test.Pos.Block.Logic.CreationSpec
+[5 of 6] Spec
+[6 of 6] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-generator-test/cardano-generator-test ...
+cardano-sl-generator-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-generator-1.0.3-Jg9YXZ1jy4lLEjS4wgZMgH
+Registering cardano-sl-generator-1.0.3...
+cardano-sl-generator-1.0.3: Test running disabled by --no-run-tests flag.
+Completed 2 action(s).
+Building cardano-sl-auxx
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-auxx
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-auxx
+
+cardano-sl-auxx-1.0.3: configure (lib + exe + test)
+Configuring cardano-sl-auxx-1.0.3...
+cardano-sl-auxx-1.0.3: build (lib + exe + test)
+Preprocessing library cardano-sl-auxx-1.0.3...
+[ 1 of 22] Repl
+[ 2 of 22] Mode
+[ 3 of 22] Lang.Value
+[ 4 of 22] Lang.Name
+[ 5 of 22] Lang.Syntax
+[ 6 of 22] Lang.Lexer
+[ 7 of 22] Lang.Parser
+[ 8 of 22] Lang.Argument
+[ 9 of 22] Lang.Command
+[10 of 22] Lang.Interpreter
+[11 of 22] Lang.DisplayError
+[12 of 22] Lang
+[13 of 22] Command.Update
+[14 of 22] Command.TyProjection
+[15 of 22] Command.Tx
+[16 of 22] Command.Rollback
+[17 of 22] Command.Help
+[18 of 22] Command.BlockGen
+[19 of 22] Command.Proc
+[20 of 22] Command
+[21 of 22] AuxxOptions
+[22 of 22] Plugin
+Preprocessing executable 'cardano-auxx' for cardano-sl-auxx-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-auxx/cardano-auxx ...
+Preprocessing test suite 'cardano-auxx-test' for cardano-sl-auxx-1.0.3...
+[1 of 5] Test.Auxx.Lang.ParserSpec
+[2 of 5] Test.Auxx.Lang.LexerSpec
+[3 of 5] Test.Auxx.Lang.ArgumentSpec
+[4 of 5] Spec
+[5 of 5] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-auxx-test/cardano-auxx-test ...
+cardano-sl-auxx-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-auxx-1.0.3-9oWFCpxgeEaFXwPR8dZs86
+Installing executable(s) in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin
+Registering cardano-sl-auxx-1.0.3...
+cardano-sl-auxx-1.0.3: Test running disabled by --no-run-tests flag.
+Completed 2 action(s).
+Building cardano-sl-tools
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-tools
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-tools
+
+cardano-sl-tools-1.0.3: configure (exe)
+Configuring cardano-sl-tools-1.0.3...
+cardano-sl-tools-1.0.3: build (exe)
+Preprocessing executable 'cardano-addr-convert' for cardano-sl-tools-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-addr-convert/cardano-addr-convert ...
+Preprocessing executable 'cardano-blockchain-analyser' for
+cardano-sl-tools-1.0.3...
+[1 of 4] Types
+[2 of 4] Options
+[3 of 4] Rendering
+[4 of 4] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-blockchain-analyser/cardano-blockchain-analyser ...
+Preprocessing executable 'cardano-cli-docs' for cardano-sl-tools-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-cli-docs/cardano-cli-docs ...
+Preprocessing executable 'cardano-dht-keygen' for cardano-sl-tools-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-dht-keygen/cardano-dht-keygen ...
+Preprocessing executable 'cardano-genupdate' for cardano-sl-tools-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-genupdate/cardano-genupdate ...
+Preprocessing executable 'cardano-keygen' for cardano-sl-tools-1.0.3...
+[1 of 3] KeygenOptions
+[2 of 3] Dump
+[3 of 3] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-keygen/cardano-keygen ...
+Preprocessing executable 'cardano-launcher' for cardano-sl-tools-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-launcher/cardano-launcher ...
+Preprocessing executable 'cardano-post-mortem' for cardano-sl-tools-1.0.3...
+[ 1 of 17] Util.Safe
+[ 2 of 17] Util.Pipes
+[ 3 of 17] Util.Aeson
+[ 4 of 17] Types
+[ 5 of 17] Statistics.Throughput
+[ 6 of 17] Statistics.Chart
+[ 7 of 17] Options
+[ 8 of 17] JSONLog
+[ 9 of 17] Statistics.Focus
+[10 of 17] Statistics.CSV
+[11 of 17] Statistics.MemPool
+[12 of 17] Statistics.Tx
+[13 of 17] Statistics.Block
+[14 of 17] Statistics.Graph
+[15 of 17] Statistics.Report
+[16 of 17] Statistics
+[17 of 17] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-post-mortem/cardano-post-mortem ...
+cardano-sl-tools-1.0.3: copy/register
+Installing executable(s) in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin
+Building cardano-sl-explorer
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-explorer
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-explorer
+
+cardano-sl-explorer-1.0.3: configure (lib + exe + test + bench)
+Configuring cardano-sl-explorer-1.0.3...
+cardano-sl-explorer-1.0.3: build (lib + exe + test + bench)
+Preprocessing library cardano-sl-explorer-1.0.3...
+[ 1 of 29] Pos.Explorer.Web.Error
+[ 2 of 29] Pos.Explorer.Socket.Util
+[ 3 of 29] Pos.Explorer.Socket.Holder
+[ 4 of 29] Pos.Explorer.Core.Types
+[ 5 of 29] Pos.Binary.Explorer
+[ 6 of 29] Pos.Explorer.Core
+[ 7 of 29] Pos.Explorer.DB
+[ 8 of 29] Pos.Explorer.BListener
+[ 9 of 29] Pos.Explorer.ExtraContext
+[10 of 29] Pos.Explorer.TestUtil
+[11 of 29] Pos.Explorer.Txp.Toil.Types
+[12 of 29] Pos.Explorer.Txp.Toil.Class
+[13 of 29] Pos.Explorer.Txp.Toil.Logic
+[14 of 29] Pos.Explorer.Txp.Toil
+[15 of 29] Pos.Explorer.Txp.Global
+[16 of 29] Pos.Explorer.Txp.Local
+[17 of 29] Pos.Explorer.Txp
+[18 of 29] Pos.Explorer.ExplorerMode
+[19 of 29] Pos.Explorer.Web.ClientTypes
+[20 of 29] Pos.Explorer.Aeson.ClientTypes
+[21 of 29] Pos.Explorer.Web.Api
+[22 of 29] Pos.Explorer.Web.TestServer
+[23 of 29] Pos.Explorer.Web.Server
+[24 of 29] Pos.Explorer.Socket.Methods
+[25 of 29] Pos.Explorer.Socket.App
+[26 of 29] Pos.Explorer.Socket
+[27 of 29] Pos.Explorer.Web.Transform
+[28 of 29] Pos.Explorer.Web
+[29 of 29] Pos.Arbitrary.Explorer
+Preprocessing executable 'cardano-explorer' for cardano-sl-explorer-1.0.3...
+[1 of 3] Paths_cardano_sl_explorer
+[2 of 3] NodeOptions
+[3 of 3] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-explorer/cardano-explorer ...
+Preprocessing executable 'cardano-explorer-hs2purs' for
+cardano-sl-explorer-1.0.3...
+[1 of 4] Paths_cardano_sl_explorer
+[2 of 4] PSTypes
+[3 of 4] PSOptions
+[4 of 4] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-explorer-hs2purs/cardano-explorer-hs2purs ...
+Preprocessing executable 'cardano-explorer-mock' for
+cardano-sl-explorer-1.0.3...
+[1 of 2] Paths_cardano_sl_explorer
+[2 of 2] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-explorer-mock/cardano-explorer-mock ...
+Preprocessing executable 'cardano-explorer-swagger' for
+cardano-sl-explorer-1.0.3...
+[1 of 2] Paths_cardano_sl_explorer
+[2 of 2] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-explorer-swagger/cardano-explorer-swagger ...
+Preprocessing test suite 'cardano-explorer-test' for
+cardano-sl-explorer-1.0.3...
+[1 of 9] Test.Pos.Explorer.Web.ServerSpec
+[2 of 9] Test.Pos.Explorer.Web.ClientTypesSpec
+[3 of 9] Test.Pos.Explorer.Socket.UtilSpec
+[4 of 9] Test.Pos.Explorer.MockFactory
+[5 of 9] Test.Pos.Explorer.Socket.AppSpec
+[6 of 9] Test.Pos.Explorer.Socket.MethodsSpec
+[7 of 9] Test.Pos.Explorer.Identity.BinarySpec
+[8 of 9] Spec
+[9 of 9] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-explorer-test/cardano-explorer-test ...
+Preprocessing benchmark 'cardano-explorer-bench' for
+cardano-sl-explorer-1.0.3...
+[1 of 2] Bench.Pos.Explorer.ServerBench
+[2 of 2] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-explorer-bench/cardano-explorer-bench ...
+cardano-sl-explorer-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-explorer-1.0.3-Cty8VkWTnUl3o13GQuLjW2
+Installing executable(s) in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin
+Registering cardano-sl-explorer-1.0.3...
+cardano-sl-explorer-1.0.3: Test running disabled by --no-run-tests flag.
+cardano-sl-explorer-1.0.3: Benchmark running disabled by --no-run-benchmarks flag.
+Completed 2 action(s).
+Building cardano-sl-wallet
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-wallet
+
+servant-swagger-ui-0.2.4.3.4.0: configure
+servant-swagger-ui-0.2.4.3.4.0: build
+servant-swagger-ui-0.2.4.3.4.0: copy/register
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-wallet
+
+cardano-sl-wallet-1.0.3: configure (lib + exe + test)
+Configuring cardano-sl-wallet-1.0.3...
+cardano-sl-wallet-1.0.3: build (lib + exe + test)
+Preprocessing library cardano-sl-wallet-1.0.3...
+[ 1 of 67] Pos.Wallet.Web.Swagger.Instances.Swagger
+[ 2 of 67] Pos.Wallet.Web.Sockets.Types
+[ 3 of 67] Pos.Wallet.Web.Sockets.ConnSet
+[ 4 of 67] Pos.Wallet.Web.Networking
+[ 5 of 67] Pos.Wallet.Web.Error.Types
+[ 6 of 67] Pos.Wallet.Web.Error.Util
+[ 7 of 67] Pos.Wallet.Web.Error
+[ 8 of 67] Pos.Wallet.WalletMode
+[ 9 of 67] Pos.Wallet.Aeson.Options
+[10 of 67] Pos.Util.Mnemonics
+[11 of 67] Pos.Util.BackupPhrase
+[12 of 67] Pos.Wallet.Web.ClientTypes.Types
+[13 of 67] Pos.Wallet.Web.Pending.Types
+[14 of 67] Pos.Wallet.Web.ClientTypes.Instances
+[15 of 67] Pos.Wallet.Web.ClientTypes.Functions
+[16 of 67] Pos.Wallet.Web.ClientTypes
+[17 of 67] Pos.Wallet.Aeson.ClientTypes
+[18 of 67] Pos.Wallet.Web.Assurance
+[19 of 67] Pos.Wallet.Web.Methods.Reporting
+[20 of 67] Pos.Wallet.Web.Tracking.Decrypt
+[21 of 67] Pos.Wallet.Web.Pending.Util
+[22 of 67] Pos.Wallet.Web.Tracking.Modifier
+[23 of 67] Pos.Wallet.Web.State.Storage
+[24 of 67] Pos.Wallet.Aeson.Storage
+[25 of 67] Pos.Wallet.Web.State.Acidic
+[26 of 67] Pos.Wallet.Web.State.State
+[27 of 67] Pos.Wallet.Web.State.Util
+[28 of 67] Pos.Wallet.Web.State
+[29 of 67] Pos.Wallet.Web.Account
+[30 of 67] Pos.Wallet.Web.Methods.Misc
+[31 of 67] Pos.Wallet.Web.Api
+[32 of 67] Pos.Wallet.Web.Pending.Functions
+[33 of 67] Pos.Wallet.Web.Pending.Submission
+[34 of 67] Pos.Wallet.Web.Tracking.Sync
+[35 of 67] Pos.Wallet.Web.Tracking.BListener
+[36 of 67] Pos.Wallet.Web.Tracking
+[37 of 67] Pos.Wallet.Web.Util
+[38 of 67] Pos.Wallet.Web.Backup
+[39 of 67] Pos.Wallet.Aeson.WalletBackup
+[40 of 67] Pos.Wallet.Aeson
+[41 of 67] Pos.Wallet.Web.Sockets.Connection
+[42 of 67] Pos.Wallet.Web.Methods.Logic
+[43 of 67] Pos.Wallet.Web.Methods.Backup
+[44 of 67] Pos.Wallet.Web.Methods.Restore
+[45 of 67] Pos.Wallet.Web.Pending.Worker
+[46 of 67] Pos.Wallet.Web.Pending
+[47 of 67] Pos.Wallet.Web.Methods.History
+[48 of 67] Pos.Wallet.Redirect
+[49 of 67] Pos.Wallet.Web.Methods.Txp
+[50 of 67] Pos.Wallet.Web.Methods.Payment
+[51 of 67] Pos.Wallet.Web.Methods.Redeem
+[52 of 67] Pos.Wallet.Web.Swagger.Instances.Schema
+[53 of 67] Pos.Wallet.Web.Swagger.Spec
+[54 of 67] Pos.Wallet.Web.Swagger
+[55 of 67] Pos.Arbitrary.Wallet.Web.ClientTypes
+[56 of 67] Paths_cardano_sl_wallet
+[57 of 67] Pos.Wallet.Web.Methods.Info
+[58 of 67] Pos.Wallet.Web.Methods
+[59 of 67] Pos.Wallet.Web.Mode
+[60 of 67] Pos.Wallet.Web.Sockets.Notifier
+[61 of 67] Pos.Wallet.Web.Sockets
+[62 of 67] Pos.Wallet.Web.Server.Handlers
+[63 of 67] Pos.Wallet.Web.Server.Launcher
+[64 of 67] Pos.Wallet.Web.Server.Runner
+[65 of 67] Pos.Wallet.Web.Server
+[66 of 67] Pos.Wallet.Web
+[67 of 67] Pos.Wallet
+Preprocessing executable 'cardano-node' for cardano-sl-wallet-1.0.3...
+[1 of 2] NodeOptions
+[2 of 2] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-node/cardano-node ...
+Preprocessing executable 'cardano-swagger' for cardano-sl-wallet-1.0.3...
+[1 of 1] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-swagger/cardano-swagger ...
+Preprocessing executable 'cardano-wallet-hs2purs' for
+cardano-sl-wallet-1.0.3...
+[1 of 2] PSTypes
+[2 of 2] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-wallet-hs2purs/cardano-wallet-hs2purs ...
+Preprocessing test suite 'cardano-wallet-test' for cardano-sl-wallet-1.0.3...
+[ 1 of 10] Test.Pos.Wallet.Web.Mode
+[ 2 of 10] Test.Pos.Wallet.Web.Util
+[ 3 of 10] Test.Pos.Wallet.Web.Tracking.SyncSpec
+[ 4 of 10] Test.Pos.Wallet.Web.Methods.PaymentSpec
+[ 5 of 10] Test.Pos.Wallet.Web.Methods.LogicSpec
+[ 6 of 10] Test.Pos.Wallet.Web.Methods.BackupDefaultAddressesSpec
+[ 7 of 10] Test.Pos.Wallet.Web.AddressSpec
+[ 8 of 10] Test.Pos.Types.Identity.BinarySpec
+[ 9 of 10] Spec
+[10 of 10] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/cardano-wallet-test/cardano-wallet-test ...
+cardano-sl-wallet-1.0.3: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-wallet-1.0.3-4oR4IGjvzHl6NOaSFTk7MO
+Installing executable(s) in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin
+Registering cardano-sl-wallet-1.0.3...
+cardano-sl-wallet-1.0.3: Test running disabled by --no-run-tests flag.
+Completed 2 action(s).
+Building cardano-sl-wallet-new
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --dependencies-only  cardano-sl-wallet-new
+
+stack build --ghc-options=" -Wwarn +RTS -A256m -n2m -RTS" --test --no-haddock-deps --bench --jobs=4 --no-run-tests --no-run-benchmarks --fast  cardano-sl-wallet-new
+
+cardano-sl-wallet-new-0.1.0.0: configure (lib + exe + test)
+Configuring cardano-sl-wallet-new-0.1.0.0...
+cardano-sl-wallet-new-0.1.0.0: build (lib + exe + test)
+Preprocessing library cardano-sl-wallet-new-0.1.0.0...
+[ 1 of 23] Cardano.Wallet.Util
+[ 2 of 23] Cardano.Wallet.Orphans.Bi
+[ 3 of 23] Cardano.Wallet.Orphans.Arbitrary
+[ 4 of 23] Cardano.Wallet.Orphans.Aeson
+[ 5 of 23] Cardano.Wallet.Orphans
+[ 6 of 23] Cardano.Wallet.API.V1.Generic
+[ 7 of 23] Cardano.Wallet.API.V1.Errors
+[ 8 of 23] Cardano.Wallet.API.V0.Types
+[ 9 of 23] Cardano.Wallet.API.V0
+[10 of 23] Cardano.Wallet.API.Types.UnitOfMeasure
+[11 of 23] Cardano.Wallet.API.V1.Types
+[12 of 23] Cardano.Wallet.API.V1.Info
+[13 of 23] Cardano.Wallet.API.V1.Migration
+[14 of 23] Cardano.Wallet.API.V1.Settings
+[15 of 23] Cardano.Wallet.API.V1.Updates
+[16 of 23] Cardano.Wallet.API.Types
+[17 of 23] Cardano.Wallet.API.V1.Parameters
+[18 of 23] Cardano.Wallet.API.V1.Accounts
+[19 of 23] Cardano.Wallet.API.V1.Addresses
+[20 of 23] Cardano.Wallet.API.V1.Transactions
+[21 of 23] Cardano.Wallet.API.V1.Wallets
+[22 of 23] Cardano.Wallet.API.V1
+[23 of 23] Cardano.Wallet.API
+Preprocessing executable 'wallet-new-server' for
+cardano-sl-wallet-new-0.1.0.0...
+[ 1 of 14] Paths_cardano_sl_wallet_new
+[ 2 of 14] Cardano.Wallet.Server.CLI
+[ 3 of 14] Cardano.Wallet.API.V1.Swagger
+[ 4 of 14] Cardano.Wallet.API.V1.Handlers.Wallets
+[ 5 of 14] Cardano.Wallet.API.V1.Handlers.Updates
+[ 6 of 14] Cardano.Wallet.API.V1.Handlers.Transactions
+[ 7 of 14] Cardano.Wallet.API.V1.Handlers.Settings
+[ 8 of 14] Cardano.Wallet.API.V1.Handlers.Info
+[ 9 of 14] Cardano.Wallet.API.V1.Handlers.Addresses
+[10 of 14] Cardano.Wallet.API.V1.Handlers
+[11 of 14] Cardano.Wallet.API.V0.Handlers
+[12 of 14] Cardano.Wallet.Server
+[13 of 14] Cardano.Wallet.Server.Plugins
+[14 of 14] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/wallet-new-server/wallet-new-server ...
+Preprocessing test suite 'wallet-new-specs' for
+cardano-sl-wallet-new-0.1.0.0...
+[ 1 of 13] Paths_cardano_sl_wallet_new
+[ 2 of 13] MarshallingSpec
+[ 3 of 13] Cardano.Wallet.API.V1.Swagger
+[ 4 of 13] SwaggerSpec
+[ 5 of 13] Cardano.Wallet.API.V1.Handlers.Wallets
+[ 6 of 13] Cardano.Wallet.API.V1.Handlers.Updates
+[ 7 of 13] Cardano.Wallet.API.V1.Handlers.Transactions
+[ 8 of 13] Cardano.Wallet.API.V1.Handlers.Settings
+[ 9 of 13] Cardano.Wallet.API.V1.Handlers.Info
+[10 of 13] Cardano.Wallet.API.V1.Handlers.Addresses
+[11 of 13] Cardano.Wallet.API.V1.Handlers
+[12 of 13] APISpec
+[13 of 13] Main
+Linking .stack-work/dist/x86_64-linux-nopie/Cabal-1.24.2.0/build/wallet-new-specs/wallet-new-specs ...
+cardano-sl-wallet-new-0.1.0.0: copy/register
+Installing library in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/lib/x86_64-linux-ghc-8.0.2/cardano-sl-wallet-new-0.1.0.0-CSwz8BC7F1cA2Z7Z1DkHFH
+Installing executable(s) in
+/home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin
+Registering cardano-sl-wallet-new-0.1.0.0...
+cardano-sl-wallet-new-0.1.0.0: Test running disabled by --no-run-tests flag.
+Completed 2 action(s).
+
+
+mdupont@debian-build-speed:~/experiments/cardano-sl$ /home/mdupont/experiments/cardano-sl/.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin/cardano-node --version
+cardano-node-1.0.3, git revision d30dd9f 
+
+mdupont@debian-build-speed:~/experiments/cardano-sl$ git log -1
+WARNING: terminal is not fully functional
+-  (press RETURN)
+commit d30dd9f9184a4395d83f7e61b9f2e15efb5a966d
+Author: James Michael DuPont <jamesmikedupont+build@gmail.com>
+Date:   Mon Dec 18 10:44:12 2017 -0500
+
+    update readme
