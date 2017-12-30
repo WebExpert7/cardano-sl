@@ -1,6 +1,6 @@
 #./scripts/tls-files/server.crt
 
-./.stack-work/install/x86_64-linux-nopie/lts-9.1/8.0.2/bin/cardano-node   \
+./result/bin/cardano-node   \
   --web                                           \
   --no-ntp                                                       \
   --configuration-file ./lib/configuration.yaml            \

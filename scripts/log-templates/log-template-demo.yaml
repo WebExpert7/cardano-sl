@@ -4,7 +4,6 @@ rotation:
     logLimit: 104857600 # 100 MB
     keepFiles: 20
 loggerTree:
-  severity: Debug+
   files:
     - {{file}}.pub
     - {{file}}
