@@ -2416,7 +2416,7 @@ self: {
           description = "Cardano SL - update";
           license = stdenv.lib.licenses.mit;
         }) {};
-      cardano-sl-util = callPackage ({ QuickCheck, aeson, autoexporter, base, bytestring, cardano-sl-networking, concurrent-extra, containers, cpphs, cryptonite, data-default, deepseq, directory, ether, exceptions, filepath, formatting, hashable, lens, log-warper, lrucache, mkDerivation, mmorph, mtl, parsec, process, quickcheck-instances, random, reflection, resourcet, semigroups, serokell-util, stdenv, stm, tagged, template-haskell, text, text-format, th-lift-instances, time, time-units, transformers, transformers-base, transformers-lift, universum, unordered-containers, vector }:
+      cardano-sl-util = callPackage ({ QuickCheck, aeson, autoexporter, base, bytestring, cardano-sl-networking, concurrent-extra, containers, cpphs, cryptonite, data-default, deepseq, directory, ether, exceptions, filepath, formatting, hashable, lens, log-warper, lrucache, mkDerivation, mmorph, mtl, parsec, process, quickcheck-instances, random, reflection, resourcet, safe-exceptions, semigroups, serokell-util, stdenv, stm, tagged, template-haskell, text, text-format, th-lift-instances, time, time-units, transformers, transformers-base, transformers-lift, universum, unordered-containers, vector }:
       mkDerivation {
           pname = "cardano-sl-util";
           version = "1.0.3";
@@ -2450,6 +2450,7 @@ self: {
             random
             reflection
             resourcet
+            safe-exceptions
             semigroups
             serokell-util
             stm
@@ -5230,11 +5231,11 @@ self: {
           description = "Types representing line and column positions and ranges in text files";
           license = stdenv.lib.licenses.asl20;
         }) {};
-      log-warper = callPackage ({ aeson, ansi-terminal, base, containers, deepseq, directory, dlist, errors, exceptions, extra, filepath, fmt, formatting, hashable, lens, mkDerivation, mmorph, monad-control, monad-loops, mtl, network, safecopy, stdenv, text, text-format, time, transformers, transformers-base, universum, unix, unordered-containers, yaml }:
+      log-warper = callPackage ({ aeson, ansi-terminal, base, containers, deepseq, directory, dlist, errors, exceptions, extra, filepath, fmt, formatting, hashable, lens, markdown-unlit, mkDerivation, mmorph, monad-control, monad-loops, mtl, network, stdenv, text, text-format, time, transformers, transformers-base, universum, unix, unordered-containers, vector, yaml }:
       mkDerivation {
           pname = "log-warper";
-          version = "1.3.4";
-          sha256 = "155aa9316e4d3fbd55a4f91fee163e7cf27420008d80e15c296947c2466cc772";
+          version = "1.8.0";
+          sha256 = "370274f1420405e34e135dfcb73b6ed90dd2d6f8704d3c25811baa43a27db32c";
           isLibrary = true;
           isExecutable = true;
           libraryHaskellDepends = [
@@ -5258,7 +5259,6 @@ self: {
             monad-loops
             mtl
             network
-            safecopy
             text
             text-format
             time
@@ -5267,11 +5267,13 @@ self: {
             universum
             unix
             unordered-containers
+            vector
             yaml
           ];
           executableHaskellDepends = [
             base
             exceptions
+            markdown-unlit
             text
             universum
             yaml
@@ -5318,6 +5320,27 @@ self: {
           description = "Conduit interface for lzma/xz compression";
           license = stdenv.lib.licenses.bsd3;
         }) { lzma = pkgs.lzma; };
+      markdown-unlit = callPackage ({ base, base-compat, mkDerivation, stdenv }:
+      mkDerivation {
+          pname = "markdown-unlit";
+          version = "0.4.0";
+          sha256 = "7c650cae7326a687265274d9e73c74ab2f7e570d7928ce9f47add9439d5b42ce";
+          isLibrary = true;
+          isExecutable = true;
+          libraryHaskellDepends = [
+            base
+            base-compat
+          ];
+          executableHaskellDepends = [
+            base
+            base-compat
+          ];
+          doHaddock = false;
+          doCheck = false;
+          homepage = "https://github.com/sol/markdown-unlit#readme";
+          description = "Literate Haskell support for Markdown";
+          license = stdenv.lib.licenses.mit;
+        }) {};
       math-functions = callPackage ({ base, deepseq, mkDerivation, primitive, stdenv, vector, vector-th-unbox }:
       mkDerivation {
           pname = "math-functions";
@@ -5341,6 +5364,8 @@ self: {
           pname = "megaparsec";
           version = "6.2.0";
           sha256 = "8feaed80faf349cf67f642683173385e97e46d254db4eeefb3724de6993bd6cf";
+          revision = "1";
+          editedCabalFile = "1avlmfwf822bn7y8pgdbf67jsq2sdppvsrvhxd5na5jxvfx2j0lz";
           libraryHaskellDepends = [
             base
             bytestring
@@ -6578,6 +6603,8 @@ self: {
           pname = "servant";
           version = "0.12";
           sha256 = "09fd559b7d48e87bbb0eddbf8f8b9a2fd67197bfcdb2fcc8fd2b60295b941d41";
+          revision = "1";
+          editedCabalFile = "0gcpz466zjbcg95bpxybq1v939wmjwani1ml4fmblhckbcbkl723";
           setupHaskellDepends = [
             base
             Cabal
@@ -6664,6 +6691,8 @@ self: {
           pname = "servant-client-core";
           version = "0.12";
           sha256 = "a50cac1cb5225eab8632dc2cb8b1a9917deec67f46cb2f86c2cec31c9f366371";
+          revision = "1";
+          editedCabalFile = "0sfj0sj66f4wi2r4g9hr6p0010jc8l2h05mi23r0217ncwh8y3xm";
           libraryHaskellDepends = [
             base
             base-compat
@@ -6821,6 +6850,8 @@ self: {
           pname = "servant-server";
           version = "0.12";
           sha256 = "65f23367fc1cdc3ee63e37464b5e0c9680b87c6ac4c251fbece417921a993cc6";
+          revision = "1";
+          editedCabalFile = "1b0vqzbaaz3bqzdh640rss5xsyl0s5q42xccfdmzmpn559w3p81r";
           isLibrary = true;
           isExecutable = true;
           setupHaskellDepends = [
@@ -7837,8 +7868,8 @@ self: {
       universum = callPackage ({ base, bytestring, containers, deepseq, exceptions, ghc-prim, hashable, microlens, microlens-mtl, mkDerivation, mtl, safe, safe-exceptions, stdenv, stm, text, text-format, transformers, type-operators, unordered-containers, utf8-string, vector }:
       mkDerivation {
           pname = "universum";
-          version = "0.7.0";
-          sha256 = "2eb3398cafb621a0b8966e5d6af16989a3dac0ec7467c62fd3c9a127e84148b4";
+          version = "0.9.0";
+          sha256 = "b6ac8d57b20a030749af6a778192776f34466ce4ab5f60668ef2b8ea8a1195af";
           libraryHaskellDepends = [
             base
             bytestring

@@ -48,6 +48,7 @@ let
         };
       });
 
+      cardano-sl-networking = dontCheck super.cardano-sl-networking;
       cardano-sl-client = addRealTimeTestLogs super.cardano-sl-client;
       cardano-sl-generator = addRealTimeTestLogs super.cardano-sl-generator;
       cardano-sl-auxx = addGitRev super.cardano-sl-auxx;
@@ -58,7 +59,7 @@ let
         doCheck = ! pkgs.stdenv.isDarwin;
       })));
 
-      cardano-sl-static = justStaticExecutables self.cardano-sl;
+      cardano-sl-node-static = justStaticExecutables self.cardano-sl-node;
       cardano-sl-explorer-static = addGitRev (justStaticExecutables self.cardano-sl-explorer);
       cardano-report-server-static = justStaticExecutables self.cardano-report-server;
 
