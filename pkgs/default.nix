@@ -4537,8 +4537,8 @@ self: {
       hscolour = callPackage ({ base, containers, mkDerivation, stdenv }:
       mkDerivation {
           pname = "hscolour";
-          version = "1.24.2";
-          sha256 = "55fb86bafdcad9613c25910b1cbca4b071c1ddc6365538c3b3d4e350cb30cf22";
+          version = "1.24.4";
+          sha256 = "243332b082294117f37b2c2c68079fa61af68b36223b3fc07594f245e0e5321d";
           isLibrary = true;
           isExecutable = true;
           enableSeparateDataOutput = true;
@@ -7959,8 +7959,8 @@ self: {
           pname = "utf8-string";
           version = "1.0.1.1";
           sha256 = "fb0b9e3acbe0605bcd1c63e51f290a7bbbe6628dfa3294ff453e4235fbaef140";
-          revision = "2";
-          editedCabalFile = "1b97s9picjl689hcz8scinv7c8k5iaal1livqr0l1l8yc4h0imhr";
+          revision = "3";
+          editedCabalFile = "02vhj5gykkqa2dyn7s6gn8is1b5fdn9xcqqvlls268g7cpv6rk38";
           libraryHaskellDepends = [
             base
             bytestring
