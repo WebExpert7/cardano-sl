@@ -38,7 +38,9 @@ Two steps remain, then:
     ..and then add two following lines:
 
         binary-caches             = https://cache.nixos.org https://hydra.iohk.io
-	binary-cache-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
+		binary-cache-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+    see `.travis.yml` for the source of this
 
 ## Run the nix build
 
