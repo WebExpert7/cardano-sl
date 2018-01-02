@@ -26,7 +26,7 @@ module Pos.Crypto.Signing.Types.Signing
        , isSelfSignedPsk
        ) where
 
-import qualified Cardano.Crypto.Wallet as CC
+--import qualified Cardano.Crypto.Wallet as CC
 import           Data.Hashable (Hashable)
 import qualified Data.Hashable as Hashable
 import qualified Data.Text.Buildable as B

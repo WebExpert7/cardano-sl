@@ -42,7 +42,7 @@ module Pos.Util.Util
        , getKeys
        , sortWithMDesc
        , dumpSplices
-       , histogram
+--       , histogram
        , median
        , (<//>)
        , divRoundUp
@@ -62,7 +62,7 @@ import qualified Data.Aeson.Types as A
 import           Data.HashSet (fromMap)
 import           Data.List (span, zipWith3, zipWith4)
 import qualified Data.List.NonEmpty as NE
-import qualified Data.Map as M
+--import qualified Data.Map as M
 import           Data.Ratio ((%))
 import qualified Data.Semigroup as Smg
 import           Data.Time.Clock (NominalDiffTime, UTCTime)
@@ -247,11 +247,11 @@ dumpSplices x = do
     return ds
 
 -- | Count elements in a list.
-histogram :: forall a. Ord a => [a] -> Map a Int
-histogram = foldl' step M.empty
-  where
-    step :: Map a Int -> a -> Map a Int
-    step m x = M.insertWith (+) x 1 m
+-- histogram :: forall a. Ord a => [a] -> Map a Int
+-- histogram = foldl' step M.empty
+--   where
+--     step :: Map a Int -> a -> Map a Int
+--     step m x = M.insertWith (+) x 1 m
 
 median :: Ord a => NonEmpty a -> a
 median l = NE.sort l NE.!! middle

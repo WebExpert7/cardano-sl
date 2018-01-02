@@ -617,7 +617,7 @@ startNode
     :: forall packingType peerData m .
        ( Mockable SharedAtomic m, Mockable Channel.Channel m
        , Mockable Bracket m, Mockable Throw m, Mockable Catch m
-       , Mockable Async m, Mockable Concurrently m
+       , Mockable Async m         --Mockable Concurrently m
        , Ord (ThreadId m), Show (ThreadId m)
        , Mockable CurrentTime m, Mockable Metrics.Metrics m
        , Mockable SharedExclusive m
@@ -789,7 +789,8 @@ waitForRunningHandlers node = do
 -- to various handlers.
 nodeDispatcher
     :: forall m packingType peerData .
-       ( Mockable SharedAtomic m, Mockable Async m, Mockable Concurrently m
+       ( Mockable SharedAtomic m, Mockable Async m
+       -- Mockable Concurrently m
        , Ord (ThreadId m), Mockable Bracket m, Mockable SharedExclusive m
        , Mockable Channel.Channel m, Mockable Throw m, Mockable Catch m
        , Mockable CurrentTime m, Mockable Metrics.Metrics m

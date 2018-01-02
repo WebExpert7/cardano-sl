@@ -1,4 +1,5 @@
-resolver: lts-9.1
+#resolver: lts-9.1
+resolver: nightly-2017-12-31
 
 flags:
   ether:
@@ -18,7 +19,7 @@ packages:
 - core
 - db
 - lrc
-- infra
+#- infra
 - ssc
 - txp
 - update
@@ -27,10 +28,10 @@ packages:
 - lib
 - generator
 - client
-- auxx
-- explorer
+#- auxx
+#- explorer
 - node
-- tools
+#- tools
 - wallet
 - wallet-new # The new (unreleased) version of the wallet
 
@@ -42,30 +43,37 @@ packages:
   - cborg
   extra-dep: true
 - location:
+    #git: https://github.com/serokell/serokell-util.git
+    #commit : master
+    git: https://github.com/h4ck3rm1k3/serokell-util.git
+    commit : 260e6b899cb9ddb458a404e6e1cd4c0a8a931f8c
+
+  extra-dep: true
+- location:
     git: https://github.com/serokell/time-units.git
     commit: 6c3747c1ac794f952de996dd7ba8a2f6d63bf132
   extra-dep: true
 - location:
     git: https://github.com/serokell/acid-state.git
-    commit: 95fce1dbada62020a0b2d6aa2dd7e88eadd7214b
+    commit: master
   extra-dep: true
 - location:
     git: https://github.com/serokell/kademlia.git
     commit: 7120bb4d28e708acd52dfd61d3dca7914fac7d7f # master
   extra-dep: true
-- location:
-    git: https://github.com/input-output-hk/plutus-prototype
-    commit: d4aa461fc69fc6957aab46b41a670c2144aefb77
-  extra-dep: true
+# - location:
+#     git: https://github.com/input-output-hk/plutus-prototype
+#     commit: d4aa461fc69fc6957aab46b41a670c2144aefb77
+#   extra-dep: true
 - location:
     git: https://github.com/thoughtpolice/hs-ed25519
     # We're waiting on next release
     commit: da4247b5b3420120e20451e6a252e2a2ca15b43c
   extra-dep: true
-- location:
-    git: https://github.com/input-output-hk/cardano-report-server.git
-    commit: 7b28613c9c3535193991712ff5a4a36a9f165570 # master v0.4.0
-  extra-dep: true
+# - location:
+#     git: https://github.com/input-output-hk/cardano-report-server.git
+#     commit: 7b28613c9c3535193991712ff5a4a36a9f165570 # master v0.4.0
+#   extra-dep: true
 # These three are needed for cardano-sl-networking
 - location:
     git: https://github.com/serokell/network-transport-tcp
@@ -74,6 +82,10 @@ packages:
 - location:
     git: https://github.com/serokell/network-transport
     commit: 018a50b9042c2115c3ec9c9fd5ca5f28737dd29c
+  extra-dep: true
+- location:
+    git: https://github.com/serokell/log-warper.git
+    commit : master
   extra-dep: true
 - location:
       git: https://github.com/avieth/network-transport-inmemory
@@ -92,14 +104,14 @@ packages:
   extra-dep: true
 
 # Required for explorer
-- location:
-    git: https://github.com/serokell/engine.io.git
-    commit: a594e402fd450f11ad60d09ddbd93db500000632
-  extra-dep: true
-  subdirs:
-    - socket-io
-    - engine-io
-    - engine-io-wai
+# - location:
+#     git: https://github.com/serokell/engine.io.git
+#     commit: a594e402fd450f11ad60d09ddbd93db500000632
+#   extra-dep: true
+#   subdirs:
+#     - socket-io
+#     - engine-io
+#     - engine-io-wai
 
 # Version of "dns" with proper Windows & Unix multiple-nameservers support
 - location:
@@ -115,14 +127,24 @@ packages:
 nix:
   shell-file: shell.nix
 
+#allow-newer: true
 extra-deps:
+- aeson-1.1.2.0
+- base-4.10.1.0
+- engine-io-1.2.17
+- engine-io-wai-1.0.7
+- socket-io-1.3.8
+- cryptonite-0.24
+- either-4.4.1.1
+- graphviz-2999.19.0.0
+- websockets-0.10.0.0
 - ekg-core-0.1.1.3                # https://github.com/tibbe/ekg-core/pull/21
 - transformers-0.5.5.0            # https://hub.darcs.net/ross/transformers/issue/33#comment-20171004T152940
-- universum-0.9.0
-- serokell-util-0.5.2
+- universum-1.0.2
+#- serokell-util-0.5.2
 - pvss-0.2.0
 - base58-bytestring-0.1.0
-- log-warper-1.8.0
+#- log-warper-1.8.2
 - concurrent-extra-0.7.0.10       # not yet on Stackage
 # - purescript-bridge-0.8.0.1
 - directory-1.3.1.0               # https://github.com/malcolmwallace/cpphs/issues/8
@@ -164,7 +186,7 @@ ghc-options:
   cardano-sl-core:       -Werror
   cardano-sl-db:         -Werror
   cardano-sl-ssc:        -Werror
-  cardano-sl-infra:      -Werror
+#  cardano-sl-infra:      -Werror
   cardano-sl-lrc:        -Werror
   cardano-sl-update:     -Werror
   cardano-sl-txp:        -Werror
@@ -173,8 +195,8 @@ ghc-options:
   cardano-sl:            -Werror
   cardano-sl-client:     -Werror
   cardano-sl-generator:  -Werror
-  cardano-sl-tools:      -Werror
-  cardano-sl-auxx:       -Werror
+#  cardano-sl-tools:      -Werror
+#  cardano-sl-auxx:       -Werror
   cardano-sl-wallet:     -Werror
-  cardano-sl-explorer:   -Werror
+#  cardano-sl-explorer:   -Werror
   cardano-sl-node:       -Werror

@@ -148,8 +148,8 @@ library
                       , binary
                       , bytestring
                       , cborg
-                      , canonical-json
-                      , cardano-crypto
+--                      , canonical-json
+--                      , cardano-crypto
                       , cardano-sl-binary
                       , cardano-sl-block
                       , cardano-sl-core
@@ -167,7 +167,7 @@ library
                       , conduit >= 1.2.8
                       , constraints
                       , containers
-                      , cryptonite >= 0.23 && <= 0.23
+                      , cryptonite >= 0.23
                       , data-default
                       , deepseq
                       , directory
@@ -193,11 +193,11 @@ library
                       , monad-control
                       , mtl
                       , neat-interpolation
-                      , network-transport
-                      , network-transport-tcp
+--                      , network-transport
+--                      , network-transport-tcp
                       , optparse-applicative
                       , parsec
-                      , plutus-prototype
+--                      , plutus-prototype
                       , pvss
                       , random
                       , reflection
@@ -330,7 +330,7 @@ test-suite cardano-test
                      , QuickCheck
                      , base
                      , bytestring
-                     , canonical-json
+--                     , canonical-json
                      , cardano-sl
                      , cardano-sl-binary
                      , cardano-sl-block

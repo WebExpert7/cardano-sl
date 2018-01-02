@@ -161,7 +161,7 @@ library
                      , memory
                      , mtl
                      , parsec
-                     , plutus-prototype
+--                     , plutus-prototype
                      , quickcheck-instances
                      , random
                      , reflection

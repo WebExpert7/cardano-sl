@@ -8,7 +8,7 @@ module Pos.Util.Modifier
        , lookup
        , filter
        , keysM
-       , keys
+       , Pos.Util.Modifier.keys
        , valuesM
        , values
        , toListM
@@ -25,8 +25,8 @@ module Pos.Util.Modifier
 
        , mapMaybeM
        , mapMaybe
-       , modifyHashMap
-       , modifyMap
+--       , modifyHashMap
+--       , modifyMap
        , foldlMapModWKey'
        , fromHashMap
        , toHashMap
@@ -37,7 +37,7 @@ import qualified Universum
 
 import           Data.Hashable (Hashable)
 import qualified Data.HashMap.Strict as HM
-import qualified Data.Map as M
+--import qualified Data.Map as M
 import qualified Data.Text.Buildable
 import           Formatting (bprint, (%))
 import           Serokell.Util (listJson, pairF)
@@ -212,20 +212,20 @@ mapMaybe
     => [(k, v2)] -> (v1 -> Maybe v2) -> MapModifier k v1 -> [(k, v2)]
 mapMaybe getter f = runIdentity . mapMaybeM (Identity getter) f
 
--- | Applies a map modifier to a hashmap, returning the result
-modifyHashMap :: (Eq k, Hashable k) => MapModifier k v -> HashMap k v -> HashMap k v
-modifyHashMap pm hm =
-    foldl' (flip (uncurry HM.insert)) (foldl' (flip HM.delete) hm deletes) inserts
-  where
-    inserts = insertions pm
-    deletes = deletions pm
+-- -- | Applies a map modifier to a hashmap, returning the result
+-- modifyHashMap :: (Eq k, Hashable k) => MapModifier k v -> HashMap k v -> HashMap k v
+-- modifyHashMap pm hm =
+--     foldl' (flip (uncurry HM.insert)) (foldl' (flip HM.delete) hm deletes) inserts
+--   where
+--     inserts = insertions pm
+--     deletes = deletions pm
 
-modifyMap :: Ord k => MapModifier k v -> Map k v -> Map k v
-modifyMap pm hm =
-    foldl' (flip (uncurry M.insert)) (foldl' (flip M.delete) hm deletes) inserts
-  where
-    inserts = insertions pm
-    deletes = deletions pm
+-- modifyMap :: Ord k => MapModifier k v -> Map k v -> Map k v
+-- modifyMap pm hm =
+--     foldl' (flip (uncurry M.insert)) (foldl' (flip M.delete) hm deletes) inserts
+--   where
+--     inserts = insertions pm
+--     deletes = deletions pm
 
 foldlMapModWKey'
     :: (Eq k, Hashable k)

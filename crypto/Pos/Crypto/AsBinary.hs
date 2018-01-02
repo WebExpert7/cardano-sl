@@ -14,7 +14,7 @@ import           Universum
 import qualified Data.ByteString as BS
 import           Data.Text.Buildable (Buildable)
 import qualified Data.Text.Buildable as Buildable
-import           Formatting (bprint, int, sformat, stext, (%))
+import           Formatting (bprint, (%))
 
 import           Pos.Binary.Class (AsBinary (..), AsBinaryClass (..), Bi, decodeFull, serialize')
 import           Pos.Crypto.Hashing (hash, shortHashF)
@@ -33,17 +33,17 @@ checkLen action name len bs =
     maybe bs error $ checkLenImpl action name len $ BS.length bs
 
 checkLenImpl :: Integral a => Text -> Text -> a -> a -> Maybe Text
-checkLenImpl action name expectedLen len
+checkLenImpl _ _ expectedLen len
     | expectedLen == len = Nothing
     | otherwise =
-        Just $
-        sformat
-            (stext % " " %stext % " failed: length of bytestring is " %int %
-             " instead of " %int)
-            action
-            name
-            len
-            expectedLen
+        Just $ "error"
+        -- sformat
+        --     (stext % " " %stext % " failed: length of bytestring is " %int %
+        --      " instead of " %int)
+        --     action
+        --     name
+        --     len
+        --     expectedLen
 
 #define Ser(B, Bytes, Name) \
   instance (Bi B, Bi (AsBinary B)) => AsBinaryClass B where {\

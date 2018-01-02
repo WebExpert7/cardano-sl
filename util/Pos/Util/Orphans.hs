@@ -45,14 +45,14 @@ import qualified Crypto.Random as Rand
 import           Data.Aeson (FromJSON (..), ToJSON (..))
 import           Data.Hashable (Hashable (hashWithSalt))
 import qualified Data.HashMap.Strict as HM
-import           Data.Tagged (Tagged (Tagged))
+--import           Data.Tagged (Tagged (Tagged))
 import           Data.Text.Buildable (build)
 import           Data.Time.Units (Attosecond, Day, Femtosecond, Fortnight, Hour, Microsecond,
                                   Millisecond, Minute, Nanosecond, Picosecond, Second, Week,
                                   toMicroseconds)
-import           Data.Typeable (typeRep)
+--import           Data.Typeable (typeRep)
 import qualified Ether
-import qualified Formatting as F
+--import qualified Formatting as F
 import qualified Language.Haskell.TH.Syntax as TH
 import           Mockable (ChannelT, Counter, Distribution, Gauge, MFunctor' (..), Mockable (..),
                            Promise, SharedAtomicT, SharedExclusiveT, ThreadId)
@@ -148,11 +148,11 @@ instance Buildable Microsecond where
 instance Buildable () where
     build _ = "()"
 
-instance (Typeable s, Buildable a) => Buildable (Tagged s a) where
-    build tt@(Tagged v) = F.bprint ("Tagged " F.% F.shown F.% " " F.% F.build) ts v
-      where
-        ts = typeRep proxy
-        proxy = (const Proxy :: Tagged s a -> Proxy s) tt
+-- instance (Typeable s, Buildable a) => Buildable (Tagged s a) where
+--     build tt@(Tagged v) =  ts v -- F.bprint ("Tagged " F.% F.shown )F.% " " F.% F.build
+--       where
+--         ts = typeRep proxy
+--         proxy = (const Proxy :: Tagged s a -> Proxy s) tt
 
 ----------------------------------------------------------------------------
 -- MonadResource/ResourceT

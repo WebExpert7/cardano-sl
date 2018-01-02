@@ -14,10 +14,18 @@ module Pos.Util.Lens
        ) where
 
 import           Universum
-import           Unsafe (unsafeInit, unsafeLast)
 
+-- from https://hackage.haskell.org/package/universum-0.9.0/docs/src/Unsafe.html#unsafeHead
 import           Control.Lens (LensRules, lensField, lensRules, mappingNamer)
+import qualified Data.List  as List
+--import Unsafe (unsafeInit, unsafeLast)
+-- | Cautionary alias for 'List.init'.
+unsafeInit :: [a] -> [a]
+unsafeInit = List.init
 
+-- | Cautionary alias for 'List.last'.
+unsafeLast :: [a] -> a
+unsafeLast = List.last
 -- | Lens for the head of 'NonEmpty'.
 --
 -- We can't use '_head' because it doesn't work for 'NonEmpty':

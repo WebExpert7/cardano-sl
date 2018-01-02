@@ -11,7 +11,7 @@ module Pos.Util.Filesystem
        , withMaybeFile
        ) where
 
-import           Universum
+import           Universum(Maybe(Nothing,Just),Handle,IOMode,FilePath,MonadMask,MonadIO,String,IO,Text,Bool(False,True),(.),liftIO,openFile,bracket,return,const,uncurry,(>>),(>>=),(==),(<>),toString,($),(<$>),show,filter,foldM,(/=),map,mempty)
 
 import           Control.Concurrent (myThreadId)
 import qualified Control.Monad.Catch as MC

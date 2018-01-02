@@ -9,7 +9,7 @@ module Bench.Network.Commons
        , Ping (..)
        , Pong (..)
        , Payload (..)
-       , logMeasure
+--       , logMeasure
 
        , loadLogConfig
 
@@ -35,16 +35,16 @@ import           Data.Functor (($>))
 import           Data.Int (Int64)
 import           Data.Monoid ((<>))
 import           Data.Text.Buildable (Buildable (build))
-import           Data.Time.Units (toMicroseconds)
+--import           Data.Time.Units (toMicroseconds)
 
-import qualified Formatting as F
+--import qualified Formatting as F
 import           GHC.Generics (Generic)
 import           Prelude hiding (takeWhile)
-import           System.Wlog (LoggerConfig (..), WithLogger, errorPlus, fromScratch, infoPlus,
-                              lcTree, logInfo, ltSeverity, maybeLogsDirB, parseLoggerConfig,
+import           System.Wlog (LoggerConfig (..),  errorPlus, fromScratch, infoPlus,
+                              lcTree,  ltSeverity, maybeLogsDirB, parseLoggerConfig,
                               productionB, setupLogging, warningPlus, zoomLogger)
 
-import           Mockable.CurrentTime (realTime)
+--import           Mockable.CurrentTime (realTime)
 import           Node (Message (..))
 
 -- * Transfered data types
@@ -77,10 +77,10 @@ instance Binary Payload where
 
 -- * Util
 
-logMeasure :: (MonadIO m, WithLogger m) => MeasureEvent -> MsgId -> Payload -> m ()
-logMeasure miEvent miId miPayload = do
-    miTime <- toMicroseconds <$> realTime
-    logInfo $ F.sformat F.build $ LogMessage MeasureInfo{..}
+--logMeasure :: (MonadIO m, WithLogger m) => MeasureEvent -> MsgId -> Payload -> m ()
+--logMeasure = do
+--    miTime <- toMicroseconds <$> realTime
+--    logInfo $ "Skip" --F.sformat F.build $ LogMessage MeasureInfo{..}
 
 defaultLogConfig :: LoggerConfig
 defaultLogConfig = fromScratch $ zoom lcTree $ do
