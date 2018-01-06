@@ -1,5 +1,6 @@
 #resolver: lts-9.1
-resolver: nightly-2017-12-31
+#resolver: nightly-2017-12-31
+resolver: nightly-2018-01-01
 
 flags:
   ether:
@@ -93,7 +94,7 @@ packages:
   extra-dep: true
 - location:
     git: https://github.com/input-output-hk/cardano-crypto
-    commit: 1cde8e3a8d9093bbf571085920045c05edb3eaa4
+    commit: master
   extra-dep: true
 # We're using forked version of 'swagger2' package because of bug in haddock package.
 # Now we don't build Haddock-docs for this 'swagger2' package, and when that bug will
@@ -180,23 +181,23 @@ extra-deps:
 # This is for CI to pass --fast to all dependencies
 apply-ghc-options: everything
 
-# If you find it too restrictive, you can use `scripts/build/cardano-sl.sh' script
-ghc-options:
-  cardano-sl-util:       -Werror
-  cardano-sl-core:       -Werror
-  cardano-sl-db:         -Werror
-  cardano-sl-ssc:        -Werror
-#  cardano-sl-infra:      -Werror
-  cardano-sl-lrc:        -Werror
-  cardano-sl-update:     -Werror
-  cardano-sl-txp:        -Werror
-  cardano-sl-delegation: -Werror
-  cardano-sl-block:      -Werror
-  cardano-sl:            -Werror
-  cardano-sl-client:     -Werror
-  cardano-sl-generator:  -Werror
-#  cardano-sl-tools:      -Werror
-#  cardano-sl-auxx:       -Werror
-  cardano-sl-wallet:     -Werror
-#  cardano-sl-explorer:   -Werror
-  cardano-sl-node:       -Werror
+# # If you find it too restrictive, you can use `scripts/build/cardano-sl.sh' script
+# ghc-options:
+#   cardano-sl-util:       -Werror
+#   cardano-sl-core:       -Werror
+#   cardano-sl-db:         -Werror
+#   cardano-sl-ssc:        -Werror
+# #  cardano-sl-infra:      -Werror
+#   cardano-sl-lrc:        -Werror
+#   cardano-sl-update:     -Werror
+#   cardano-sl-txp:        -Werror
+#   cardano-sl-delegation: -Werror
+#   cardano-sl-block:      -Werror
+#   cardano-sl:            -Werror
+#   cardano-sl-client:     -Werror
+#   cardano-sl-generator:  -Werror
+# #  cardano-sl-tools:      -Werror
+# #  cardano-sl-auxx:       -Werror
+#   cardano-sl-wallet:     -Werror
+# #  cardano-sl-explorer:   -Werror
+#   cardano-sl-node:       -Werror

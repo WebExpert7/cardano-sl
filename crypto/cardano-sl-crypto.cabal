@@ -49,7 +49,7 @@ library
                      , base
                      , binary
                      , bytestring
---                     , cardano-crypto
+                     , cardano-crypto
                      , cardano-sl-binary
                      , cardano-sl-util
                      , containers
