@@ -128,7 +128,7 @@ I connect the front and back end via ssh
 ### And the front end
 This is running on my hot hack branch were I remove uneeded code so that it loads faster
 
-`bash -x ./run.s`
+`bash -x ./run.sh`
 
 ```
 + HOT=0
