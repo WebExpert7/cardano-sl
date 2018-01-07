@@ -6,39 +6,39 @@ module Pos.Core.Slotting.Types
        , FlatSlotId
        , LocalSlotIndex (..)
        , SlotId (..)
-       , siEpochL
-       , siSlotL
-       , slotIdF
+--       , siEpochL
+--       , siSlotL
+--       , slotIdF
        , EpochOrSlot (..)
        , SlotCount (..)
 
        -- * Re-exported
-       , Timestamp (..)
-       , TimeDiff (..)
+--       , Timestamp (..)
+--       , TimeDiff (..)
        ) where
 
-import           Universum
-
-import           Control.Lens (makeLensesFor)
+--import           Universum
+import Data.Either
+--import           Control.Lens (makeLensesFor)
 import           Data.Ix (Ix)
-import qualified Data.Text.Buildable as Buildable
-import           Formatting (Format, bprint, build, int, ords, (%))
-import           System.Random (Random (..))
-
-import           Pos.Core.Slotting.Timestamp (TimeDiff (..), Timestamp (..))
-
+--import qualified Data.Text.Buildable as Buildable
+--import           Formatting (Format, bprint, build, int, ords, (%))
+--import           System.Random (Random (..))
+--import           Pos.Core.Slotting.Timestamp (TimeDiff (..), Timestamp (..))
+import Data.Word
 -- | Index of epoch.
 newtype EpochIndex = EpochIndex
     { getEpochIndex :: Word64
-    } deriving (Show, Eq, Ord, Num, Enum, Ix, Integral, Real, Generic, Hashable, Bounded, Typeable, NFData)
+    }
+                   --deriving (Show, Eq, Ord, Num, Enum, Ix, Integral, Real, Generic, Hashable, Bounded, Typeable, NFData)
 
-instance Buildable EpochIndex where
-    build = bprint ("epoch #"%int)
+--instance Buildable EpochIndex where
+--    build = bprint ("epoch #"%int)
 
 -- | Index of slot inside a concrete epoch.
 newtype LocalSlotIndex = UnsafeLocalSlotIndex
     { getSlotIndex :: Word16
-    } deriving (Show, Eq, Ord, Ix, Generic, Hashable, Buildable, Typeable, NFData)
+    } -- deriving (Show, Eq, Ord, Ix, Generic, Hashable, Buildable, Typeable, NFData)
 
 -- | Slot is identified by index of epoch and index of slot in
 -- this epoch. This is a global index, an index to a global
@@ -46,15 +46,15 @@ newtype LocalSlotIndex = UnsafeLocalSlotIndex
 data SlotId = SlotId
     { siEpoch :: !EpochIndex
     , siSlot  :: !LocalSlotIndex
-    } deriving (Show, Eq, Ord, Generic, Typeable)
+    } -- deriving (Show, Eq, Ord, Generic, Typeable)
 
-instance Buildable SlotId where
-    build SlotId {..} =
-        bprint (ords%" slot of "%ords%" epoch") (getSlotIndex siSlot) siEpoch
+--instance Buildable SlotId where
+--    build SlotId {..} =
+--        bprint (ords%" slot of "%ords%" epoch") (getSlotIndex siSlot) siEpoch
 
 -- | Specialized formatter for 'SlotId'.
-slotIdF :: Format r (SlotId -> r)
-slotIdF = build
+--slotIdF :: Format r (SlotId -> r)
+--slotIdF = build
 
 -- | FlatSlotId is a flat version of SlotId
 type FlatSlotId = Word64
@@ -63,28 +63,28 @@ type FlatSlotId = Word64
 -- have only EpochIndex, while main blocks have SlotId.
 newtype EpochOrSlot = EpochOrSlot
     { unEpochOrSlot :: Either EpochIndex SlotId
-    } deriving (Show, Eq, Generic, NFData)
+    } -- deriving (Show, Eq, Generic, NFData)
 
-instance Ord EpochOrSlot where
-    compare (EpochOrSlot e1) (EpochOrSlot e2) = case (e1,e2) of
-        (Left s1, Left s2)                      -> compare s1 s2
-        (Right s1, Left s2) | (siEpoch s1) < s2 -> LT
-                            | otherwise         -> GT
-        (Left s1, Right s2) | s1 > (siEpoch s2) -> GT
-                            | otherwise         -> LT
-        (Right s1, Right s2)
-            | siEpoch s1 == siEpoch s2 -> siSlot s1 `compare` siSlot s2
-            | otherwise -> siEpoch s1 `compare` siEpoch s2
+-- instance Ord EpochOrSlot where
+--     compare (EpochOrSlot e1) (EpochOrSlot e2) = case (e1,e2) of
+--         (Left s1, Left s2)                      -> compare s1 s2
+--         (Right s1, Left s2) | (siEpoch s1) < s2 -> LT
+--                             | otherwise         -> GT
+--         (Left s1, Right s2) | s1 > (siEpoch s2) -> GT
+--                             | otherwise         -> LT
+--         (Right s1, Right s2)
+--             | siEpoch s1 == siEpoch s2 -> siSlot s1 `compare` siSlot s2
+--             | otherwise -> siEpoch s1 `compare` siEpoch s2
 
-instance Buildable EpochOrSlot where
-    build = either Buildable.build Buildable.build . unEpochOrSlot
+-- instance Buildable EpochOrSlot where
+--     build = either Buildable.build Buildable.build . unEpochOrSlot
 
-instance NFData SlotId
+-- instance NFData SlotId
 
-flip makeLensesFor ''SlotId [
-    ("siEpoch", "siEpochL"),
-    ("siSlot" , "siSlotL") ]
+-- flip makeLensesFor ''SlotId [
+--     ("siEpoch", "siEpochL"),
+--     ("siSlot" , "siSlotL") ]
 
 newtype SlotCount = SlotCount {getSlotCount :: Word64}
-    deriving (Eq, Ord, Num, Real, Integral, Enum, Read, Show,
-              Buildable, Generic, Typeable, NFData, Hashable, Random)
+--    deriving (Eq, Ord, Num, Real, Integral, Enum, Read, Show,
+--              Buildable, Generic, Typeable, NFData, Hashable, Random)

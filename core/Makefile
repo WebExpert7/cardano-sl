@@ -39,7 +39,7 @@
 	# /home/mdupont/experiments/universum/src/Universum.hs \
 
 #	./Pos/Binary/Class.hs 
-#	./Pos/Core/Common/Address.hs
+#	
 
 test:
 	PATH=/home/mdupont/.local/bin:$(PATH) /home/mdupont/.stack/programs/x86_64-linux/ghc-nopie-8.2.2/bin/ghc \
@@ -71,10 +71,14 @@ test:
                        -XBangPatterns \
                        -XTemplateHaskell \
                        -XScopedTypeVariables \
+	./Pos/Core/Common/Address.hs	 \
+	./Pos/Core/Common/Fee.hs	 \
 	./Pos/Data/Attributes.hs \
 	./Pos/Core/Constants.hs \
 	./Pos/Core/Common/Types.hs \
 	./Pos/Core/Common/Coin.hs \
 	./Pos/Core/Common.hs \
+	./Pos/Core/Slotting/Types.hs \
+	./Pos/Core/Update/Types.hs \
 	./Pos/Core/Class.hs \
 	./Pos/Core/Block/Blockchain.hs 

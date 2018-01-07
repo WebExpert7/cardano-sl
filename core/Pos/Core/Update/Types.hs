@@ -58,12 +58,12 @@ import           Serokell.AcidState ()
 import           Serokell.Data.Memory.Units (Byte, memory)
 import           Serokell.Util.Text (listJson)
 
-import           Pos.Binary.Class (Bi, Raw)
+--import           Pos.Binary.Class (Bi, Raw)
 import           Pos.Core.Common (CoinPortion, ScriptVersion, TxFeePolicy, addressHash)
 import           Pos.Core.Slotting.Types (EpochIndex, FlatSlotId)
-import           Pos.Crypto (Hash, PublicKey, Signature, hash, shortHashF)
+--import           Pos.Crypto (Hash, PublicKey, Signature, hash, shortHashF)
 import           Pos.Data.Attributes (Attributes, areAttributesKnown)
-import           Pos.Util.Orphans ()
+--import           Pos.Util.Orphans ()
 
 ----------------------------------------------------------------------------
 -- Version
