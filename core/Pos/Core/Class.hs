@@ -20,10 +20,8 @@ module Pos.Core.Class
        , IsMainHeader (..)
        ) where
 
-import           Universum
-
-import           Control.Lens (Getter, choosing, to)
-
+--import           Universum
+--import           Control.Lens (Getter, choosing, to)
 import           Pos.Core.Common (ChainDifficulty, HeaderHash)
 import           Pos.Core.Slotting.Types (EpochIndex, EpochOrSlot (..), SlotId)
 import           Pos.Core.Update.Types (BlockVersion, SoftwareVersion)

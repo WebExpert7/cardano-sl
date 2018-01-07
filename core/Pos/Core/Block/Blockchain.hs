@@ -32,11 +32,11 @@ module Pos.Core.Block.Blockchain
        , gbConsensus
        ) where
 
-import           Universum
+--import           Universum
 
-import           Control.Lens (makeLenses)
-import           Control.Monad.Except (MonadError (throwError))
-import           Formatting (build, sformat, (%))
+--import           Control.Lens (makeLenses)
+--import           Control.Monad.Except (MonadError (throwError))
+--import           Formatting (build, sformat, (%))
 
 import           Pos.Core.Class (HasHeaderHash (..), HasPrevBlock (..))
 import           Pos.Core.Common (HeaderHash)

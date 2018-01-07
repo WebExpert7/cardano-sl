@@ -9,7 +9,7 @@ module Pos.Core.Common.Types
        , Address' (..)
        , AddrAttributes (..)
        , AddrStakeDistribution (..)
-       , mkMultiKeyDistr
+--       , mkMultiKeyDistr
        , Address (..)
 
        -- * Stakeholders
@@ -23,27 +23,27 @@ module Pos.Core.Common.Types
        -- * HeaderHash related types and functions
        , BlockHeaderStub
        , HeaderHash
-       , headerHashF
+--       , headerHashF
 
        , SharedSeed (..)
        , SlotLeaders
-       , slotLeadersF
+--       , slotLeadersF
 
        -- * Coin
        , Coin
        , CoinPortion
-       , coinF
+--       , coinF
        , unsafeGetCoin
        , getCoinPortion
-       , mkCoin
+--       , mkCoin
        , coinPortionDenominator
-       , mkCoinPortion
+--       , mkCoinPortion
        , unsafeCoinPortionFromDouble
        , maxCoinVal
 
        -- * Scripting
        , Script(..)
-       , Script_v0
+--       , Script_v0
        , ScriptVersion
 
        -- * Newtypes
@@ -51,44 +51,59 @@ module Pos.Core.Common.Types
        , BlockCount(..)
        ) where
 
-import           Universum
-
-import           Control.Lens (makePrisms)
-import           Control.Monad.Except (MonadError (throwError))
-import           Crypto.Hash (Blake2b_224)
+import Data.Word
+import Prelude
+import Data.Map
+import Data.ByteString (ByteString, null)
+--import           Universum
+--import           Control.Lens (makePrisms)
+--import           Control.Monad.Except (MonadError (throwError))
+--import           Crypto.Hash (Blake2b_224)
 import qualified Data.ByteString as BS (pack, zipWith)
 import qualified Data.ByteString.Char8 as BSC (pack)
 import           Data.Data (Data)
-import           Data.Hashable (Hashable (..))
+--import           Data.Hashable (Hashable (..))
 import qualified Data.Semigroup (Semigroup (..))
-import qualified Data.Text.Buildable as Buildable
-import           Formatting (Format, bprint, build, formatToString, int, later, (%))
-import qualified PlutusCore.Program as PLCore
-import           Serokell.Util (enumerate, listChunkedJson, pairBuilder)
-import           Serokell.Util.Base16 (formatBase16)
-import           System.Random (Random (..))
+--import qualified Data.Text.Buildable as Buildable
+--import           Formatting (Format, bprint, build, formatToString, int, later, (%))
+--import qualified PlutusCore.Program as PLCore
+--import           Serokell.Util (enumerate, listChunkedJson, pairBuilder)
+--import           Serokell.Util.Base16 (formatBase16)
+--import           System.Random (Random (..))
 
 import           Pos.Core.Constants (sharedSeedLength)
-import           Pos.Crypto.Hashing (AbstractHash, Hash)
-import           Pos.Crypto.HD (HDAddressPayload)
-import           Pos.Crypto.Signing (PublicKey, RedeemPublicKey)
+--import           Pos.Crypto.Hashing (AbstractHash, Hash)
+--import           Pos.Crypto.HD (HDAddressPayload)
+--import           Pos.Crypto.Signing (PublicKey, RedeemPublicKey)
 import           Pos.Data.Attributes (Attributes)
 
 ----------------------------------------------------------------------------
 -- Address, StakeholderId
 ----------------------------------------------------------------------------
+-- hacks
+--data AbstractHash = AbstractHash { tc :: Blake2b_224 }
+data AbstractHashBlake2b_224 = AbstractHashBlake2b_224
+data AddressHashPublicKey = AddressHashPublicKey
+-- this is hack for  AddressHash PublicKey
+
+data PublicKey = PublicKey
 
 -- | Hash used to identify address.
-type AddressHash = AbstractHash Blake2b_224
+type AddressHash = AbstractHashBlake2b_224
 
 -- | Stakeholder identifier (stakeholders are identified by their public keys)
-type StakeholderId = AddressHash PublicKey
+type StakeholderId = AddressHashPublicKey
 
+data HashMap = HashMap
+data Text = Text 
 -- | A mapping between stakeholders and they stakes.
-type StakesMap = HashMap StakeholderId Coin
+type StakesMap = Map StakeholderId Coin
 
 -- | Stakeholders and their stakes.
 type StakesList = [(StakeholderId, Coin)]
+
+-- hack
+data  RedeemPublicKey = RedeemPublicKey
 
 -- | Data which is bound to an address and must be revealed in order
 -- to spend coins belonging to this address.
@@ -106,7 +121,7 @@ data AddrSpendingData
     -- ^ Unknown type of spending data. It consists of a tag and
     -- arbitrary 'ByteString'. It allows us to introduce a new type of
     -- spending data via softfork.
-    deriving (Eq, Generic, Typeable, Show)
+--    deriving (Show)
 
 -- | Type of an address. It corresponds to constructors of
 -- 'AddrSpendingData'. It's separated, because 'Address' doesn't store
@@ -116,7 +131,7 @@ data AddrType
     | ATScript
     | ATRedeem
     | ATUnknown !Word8
-    deriving (Eq, Ord, Generic, Typeable, Show)
+--    deriving (Eq, Ord, Generic, Typeable, Show)
 
 -- | Stake distribution associated with an address.
 data AddrStakeDistribution
@@ -134,40 +149,43 @@ data AddrStakeDistribution
     -- • all portions must be positive;
     -- • there must be at least 2 items, because if there is only one item,
     -- 'SingleKeyDistr' can be used instead (which is smaller).
-    deriving (Eq, Ord, Show, Generic, Typeable)
+--    deriving (Eq, Ord, Show, Generic, Typeable)
 
 -- | Safe constructor of multi-key distribution. It checks invariants
 -- of this distribution and returns an error if something is violated.
-mkMultiKeyDistr :: MonadError Text m => Map StakeholderId CoinPortion -> m AddrStakeDistribution
-mkMultiKeyDistr distrMap = UnsafeMultiKeyDistr distrMap <$ check
-  where
-    check = do
-        when (null distrMap) $ throwError "mkMultiKeyDistr: map is empty"
-        when (length distrMap == 1) $
-            throwError "mkMultiKeyDistr: map's size is 1, use SingleKeyDistr"
-        unless (all ((> 0) . getCoinPortion) distrMap) $
-            throwError "mkMultiKeyDistr: all portions must be positive"
-        let distrSum = sum $ map getCoinPortion distrMap
-        unless (distrSum == coinPortionDenominator) $
-            throwError "mkMultiKeyDistr: distributions' sum must be equal to 1"
+-- data MonadError = MonadError
+-- mkMultiKeyDistr :: MonadError Text m => Map StakeholderId CoinPortion -> m AddrStakeDistribution
+-- mkMultiKeyDistr distrMap = UnsafeMultiKeyDistr distrMap <$ check
+--   where
+--     check = do
+--         when (Data.ByteString.null distrMap) $ throwError "mkMultiKeyDistr: map is empty"
+--         when (length distrMap == 1) $
+--             throwError "mkMultiKeyDistr: map's size is 1, use SingleKeyDistr"
+--         unless (all ((> 0) . getCoinPortion) distrMap) $
+--             throwError "mkMultiKeyDistr: all portions must be positive"
+--         let distrSum = sum $ Data.Map.map getCoinPortion distrMap
+--         unless (distrSum == coinPortionDenominator) $
+--             throwError "mkMultiKeyDistr: distributions' sum must be equal to 1"
 
+data HDAddressPayload = HDAddressPayload
 -- | Additional information stored along with address. It's intended
 -- to be put into 'Attributes' data type to make it extensible with
 -- softfork.
 data AddrAttributes = AddrAttributes
     { aaPkDerivationPath  :: !(Maybe HDAddressPayload)
     , aaStakeDistribution :: !AddrStakeDistribution
-    } deriving (Eq, Ord, Show, Generic, Typeable)
+    } 
 
 -- | Hash of this data is stored in 'Address'. This type exists mostly
 -- for internal usage.
 newtype Address' = Address'
     { unAddress' :: (AddrType, AddrSpendingData, Attributes AddrAttributes)
-    } deriving (Eq, Show, Generic, Typeable)
+    } 
 
+data AddressHashAddress = AddressHash Address
 -- | 'Address' is where you can send coins.
 data Address = Address
-    { addrRoot       :: !(AddressHash Address')
+    { addrRoot       :: !(AddressHashAddress)
     -- ^ Root of imaginary pseudo Merkle tree stored in this address.
     , addrAttributes :: !(Attributes AddrAttributes)
     -- ^ Attributes associated with this address.
@@ -175,13 +193,13 @@ data Address = Address
     -- ^ The type of this address. Should correspond to
     -- 'AddrSpendingData', but it can't be checked statically, because
     -- spending data is hashed.
-    } deriving (Eq, Ord, Generic, Typeable, Show)
+    } 
 
-instance NFData AddrType
-instance NFData AddrSpendingData
-instance NFData AddrAttributes
-instance NFData AddrStakeDistribution
-instance NFData Address
+-- instance NFData AddrType
+-- instance NFData AddrSpendingData
+-- instance NFData AddrAttributes
+-- instance NFData AddrStakeDistribution
+-- instance NFData Address
 
 ----------------------------------------------------------------------------
 -- ChainDifficulty
@@ -191,20 +209,22 @@ instance NFData Address
 -- chain. In the simplest case it can be number of blocks in chain.
 newtype ChainDifficulty = ChainDifficulty
     { getChainDifficulty :: BlockCount
-    } deriving (Show, Eq, Ord, Num, Enum, Real, Integral, Generic, Buildable, Typeable, NFData)
+    } 
 
 ----------------------------------------------------------------------------
 -- HeaderHash
 ----------------------------------------------------------------------------
-
+data Hash = Hash
+data HashBlockHeaderStub = HashBlockHeaderStub -- hack
 -- | 'Hash' of block header. This should be @Hash BlockHeader@
 -- but 'BlockHeader' is not defined in core.
-type HeaderHash = Hash BlockHeaderStub
+type HeaderHash = HashBlockHeaderStub
 data BlockHeaderStub
 
+data Format = Format 
 -- | Specialized formatter for 'HeaderHash'.
-headerHashF :: Format r (HeaderHash -> r)
-headerHashF = build
+--headerHashF :: Format r (HeaderHash -> r)
+--headerHashF = build
 
 ----------------------------------------------------------------------------
 -- SSC. It means shared seed computation, btw
@@ -215,22 +235,23 @@ headerHashF = build
 -- same value.
 newtype SharedSeed = SharedSeed
     { getSharedSeed :: ByteString
-    } deriving (Show, Eq, Ord, Generic, NFData, Typeable)
+    } 
 
-instance Buildable SharedSeed where
-    build = formatBase16 . getSharedSeed
+--instance Buildable SharedSeed where
+--    build = formatBase16 . getSharedSeed
 
-instance Semigroup SharedSeed where
-    (<>) (SharedSeed a) (SharedSeed b) =
-        SharedSeed $ BS.pack (BS.zipWith xor a b) -- fast due to rewrite rules
+-- instance Semigroup SharedSeed where
+--     (<>) (SharedSeed a) (SharedSeed b) =
+--         SharedSeed $ BS.pack (BS.zipWith xor a b) -- fast due to rewrite rules
 
-instance Monoid SharedSeed where
-    mempty = SharedSeed $ BSC.pack $ replicate sharedSeedLength '\NUL'
-    mappend = (Data.Semigroup.<>)
-    mconcat = foldl' mappend mempty
+-- instance Monoid SharedSeed where
+--     mempty = SharedSeed $ BSC.pack $ replicate sharedSeedLength '\NUL'
+--     mappend = (Data.Semigroup.<>)
+--     mconcat = foldl' mappend mempty
 
+data NonEmpty = NonEmpty
 -- | 'NonEmpty' list of slot leaders.
-type SlotLeaders = NonEmpty StakeholderId
+type SlotLeaders = [ StakeholderId ] 
 
 -- | Pretty-printer for slot leaders. Note: it takes list (not
 -- 'NonEmpty' as an argument, because one can always convert @NonEmpty
@@ -243,9 +264,9 @@ type SlotLeaders = NonEmpty StakeholderId
 --    (8, 1a1ff703), (9, 5f53e01e), (10, 1a1ff703), (11, 44283ce5), (12, 44283ce5), (13, 5f53e01e), (14, 5f53e01e), (15, 5f53e01e)
 --    (16, 44283ce5), (17, 281e5ae9), (18, 281e5ae9), (19, 44283ce5)
 -- ]
-slotLeadersF :: Format r ([StakeholderId] -> r)
-slotLeadersF =
-    later $ bprint (listChunkedJson 8) . map pairBuilder . enumerate @Int
+-- slotLeadersF :: Format r ([StakeholderId] -> r)
+-- slotLeadersF =
+--     later $ bprint (listChunkedJson 8) . Data.Map.map pairBuilder . enumerate @Int
 
 ----------------------------------------------------------------------------
 -- Coin
@@ -254,29 +275,29 @@ slotLeadersF =
 -- | Coin is the least possible unit of currency.
 newtype Coin = Coin
     { getCoin :: Word64
-    } deriving (Show, Ord, Eq, Generic, Hashable, Data, NFData)
+    } 
 
-instance Buildable Coin where
-    build (Coin n) = bprint (int%" coin(s)") n
+-- instance Buildable Coin where
+--     build (Coin n) = bprint (int%" coin(s)") n
 
-instance Bounded Coin where
-    minBound = Coin 0
-    maxBound = Coin maxCoinVal
+-- instance Bounded Coin where
+--     minBound = Coin 0
+--     maxBound = Coin maxCoinVal
 
 -- | Maximal possible value of 'Coin'.
 maxCoinVal :: Word64
 maxCoinVal = 45000000000000000
 
--- | Make Coin from Word64.
-mkCoin :: Word64 -> Coin
-mkCoin c
-    | c <= maxCoinVal = Coin c
-    | otherwise       = error $ "mkCoin: " <> show c <> " is too large"
-{-# INLINE mkCoin #-}
+-- -- | Make Coin from Word64.
+-- mkCoin :: Word64 -> Coin
+-- mkCoin c
+--     | c <= maxCoinVal = Coin c
+--     | otherwise       = error $ "mkCoin: " <> show c <> " is too large"
+-- {-# INLINE mkCoin #-}
 
 -- | Coin formatter which restricts type.
-coinF :: Format r (Coin -> r)
-coinF = build
+-- coinF :: Format r (Coin -> r)
+-- coinF = build
 
 -- | Unwraps 'Coin'. It's called “unsafe” so that people wouldn't use it
 -- willy-nilly if they want to sum coins or something. It's actually safe.
@@ -296,29 +317,31 @@ unsafeGetCoin = getCoin
 -- threshold).
 newtype CoinPortion = CoinPortion
     { getCoinPortion :: Word64
-    } deriving (Show, Ord, Eq, Generic, Typeable, NFData, Hashable)
+    } 
 
 -- | Denominator used by 'CoinPortion'.
 coinPortionDenominator :: Word64
 coinPortionDenominator = (10 :: Word64) ^ (15 :: Word64)
 
-instance Bounded CoinPortion where
-    minBound = CoinPortion 0
-    maxBound = CoinPortion coinPortionDenominator
+-- instance Bounded CoinPortion where
+--     minBound = CoinPortion 0
+--     maxBound = CoinPortion coinPortionDenominator
+
+data MonadFail = MonadFail
 
 -- | Make 'CoinPortion' from 'Word64' checking whether it is not greater
 -- than 'coinPortionDenominator'.
-mkCoinPortion
-    :: MonadFail m
-    => Word64 -> m CoinPortion
-mkCoinPortion x
-    | x <= coinPortionDenominator = pure $ CoinPortion x
-    | otherwise = fail err
-  where
-    err =
-        formatToString
-            ("mkCoinPortion: value is greater than coinPortionDenominator: "
-            %int) x
+-- mkCoinPortion
+--     :: MonadFail m
+--     => Word64 -> m CoinPortion
+-- mkCoinPortion x
+--     | x <= coinPortionDenominator = pure $ CoinPortion x
+--     | otherwise = fail err
+--   where
+--     err =
+--         formatToString
+--             ("mkCoinPortion: value is greater than coinPortionDenominator: "
+--             %int) x
 
 -- | Make CoinPortion from Double. Caller must ensure that value is in
 -- [0..1]. Internally 'CoinPortion' stores 'Word64' which is divided by
@@ -343,28 +366,27 @@ type ScriptVersion = Word16
 data Script = Script
     { scrVersion :: ScriptVersion -- ^ Version
     , scrScript  :: ByteString   -- ^ Serialized script
-    } deriving (Eq, Show, Generic, Typeable)
+    } 
 
-instance NFData Script
-instance Hashable Script
+-- instance NFData Script
+-- instance Hashable Script
 
-instance Buildable Script where
-    build Script{..} = bprint ("<script v"%int%">") scrVersion
+-- instance Buildable Script where
+--     build Script{..} = bprint ("<script v"%int%">") scrVersion
 
 -- | Deserialized script (i.e. an AST), version 0.
-type Script_v0 = PLCore.Program
+-- type Script_v0 = PLCore.Program
 
 ----------------------------------------------------------------------------
 -- Newtypes
 ----------------------------------------------------------------------------
 
 newtype BlockCount = BlockCount {getBlockCount :: Word64}
-    deriving (Eq, Ord, Num, Real, Integral, Enum, Read, Show,
-              Buildable, Generic, Typeable, NFData, Hashable, Random)
+
 
 ----------------------------------------------------------------------------
 -- Template Haskell invocations, banished to the end of the module because
 -- we don't want to topsort the whole module
 ----------------------------------------------------------------------------
 
-makePrisms ''Address
+--makePrisms ''Address

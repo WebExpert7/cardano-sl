@@ -9,23 +9,24 @@ module Pos.Core.Constants
        , wAddressGenesisIndex
        ) where
 
-import           Universum
+--import           Universum
 
-import           Pos.Crypto.HD (firstHardened)
+--import           Pos.Crypto.HD (firstHardened)
 
 -- | First index in derivation path for HD account, which is put to genesis utxo
-accountGenesisIndex :: Word32
-accountGenesisIndex = firstHardened
+--accountGenesisIndex :: Word32
+accountGenesisIndex = 1 
 
 -- | Second index in derivation path for HD account, which is put to genesis
 -- utxo
-wAddressGenesisIndex :: Word32
-wAddressGenesisIndex = firstHardened
+--wAddressGenesisIndex :: Word32
+wAddressGenesisIndex = 1 
+
 
 ----------------------------------------------------------------------------
 -- Constants which are not configurable
 ----------------------------------------------------------------------------
 
 -- | Length of shared seed.
-sharedSeedLength :: Integral a => a
+--sharedSeedLength :: Integral a => a
 sharedSeedLength = 32
